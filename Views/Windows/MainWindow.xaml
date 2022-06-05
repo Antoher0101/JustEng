@@ -1,0 +1,29 @@
+﻿<Window x:Class="JustEng.MainWindow"
+		x:Name="mWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JustEng"
+        xmlns:vm="clr-namespace:JustEng.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="597" Width="882"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+	<DockPanel>
+		<Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=mWindow, Mode=OneWay}" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="Lime" HorizontalContentAlignment="Stretch" DockPanel.Dock="Top">
+			<MenuItem Header="Flashcard"></MenuItem>
+			<MenuItem Header="Tense"></MenuItem>
+		</Menu>
+		<Frame/>
+	</DockPanel>
+</Window>
