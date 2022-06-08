@@ -1,15 +1,153 @@
-﻿<Page x:Class="JustEng.Pages.TensePage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:JustEng.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:local="clr-namespace:JustEng.Pages" 
+	  xmlns:vm="clr-namespace:JustEng.ViewModels"
+	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="JustEng.Pages.TensePage"
+	  mc:Ignorable="d" 
+      d:DesignHeight="653" d:DesignWidth="1200"
       Title="TensePage">
+	<Page.DataContext>
+		<vm:TensePageViewModel/>
+	</Page.DataContext>
 
 	<Grid>
-		<Label Content="TensePage" HorizontalAlignment="Left" Margin="369,228,0,0" VerticalAlignment="Top" FontSize="72"/>
+		<TabControl TabStripPlacement="Left" SelectedIndex="{Binding CurrentTab}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+			<TabItem  HorizontalAlignment="Stretch" Height="60">
+				<TabItem.Header>
+					<Label Content="Tense table" FontSize="20" />
+				</TabItem.Header>
+				<DataGrid Margin="20" VerticalAlignment="Top" FontSize="20" ItemsSource="{Binding Tenses}" AutoGenerateColumns="False" 
+						  IsReadOnly="True"
+						  SelectionMode="Single" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False" MinRowHeight="120">
+					<!--Empty column-->
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Width="0.5*">
+							<DataGridTemplateColumn.Header>
+								<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
 
+						<!--Simple column-->
+						<DataGridTemplateColumn Width="*">
+							<DataGridTemplateColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+									<Setter Property="HorizontalContentAlignment" Value="Center" />
+								</Style>
+							</DataGridTemplateColumn.HeaderStyle>
+							<DataGridTemplateColumn.Header>
+								<TextBlock Text="Simple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel ToolTip="{Binding Simple.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
+											<Path.Data>
+												<PathGeometry Figures="{Binding Simple.Timeline}"/>
+											</Path.Data>
+										</Path>
+										<TextBlock Text="{Binding Simple.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<!--Continuous column-->
+						<DataGridTemplateColumn Width="*">
+							<DataGridTemplateColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+									<Setter Property="HorizontalContentAlignment" Value="Center" />
+								</Style>
+							</DataGridTemplateColumn.HeaderStyle>
+							<DataGridTemplateColumn.Header>
+								<TextBlock Text="Continuous" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel ToolTip="{Binding Simple.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
+											<Path.Data>
+												<PathGeometry Figures="{Binding Continuous.Timeline}"/>
+											</Path.Data>
+										</Path>
+										<TextBlock Text="{Binding Simple.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<!--Perfect column-->
+						<DataGridTemplateColumn Width="*">
+							<DataGridTemplateColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+									<Setter Property="HorizontalContentAlignment" Value="Center" />
+								</Style>
+							</DataGridTemplateColumn.HeaderStyle>
+							<DataGridTemplateColumn.Header>
+								<TextBlock Text="Perfect" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel ToolTip="{Binding Simple.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
+											<Path.Data>
+												<PathGeometry Figures="{Binding Perfect.Timeline}"/>
+											</Path.Data>
+										</Path>
+										<TextBlock Text="{Binding Simple.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<!--Perfect Continuous column-->
+						<DataGridTemplateColumn Width="*">
+							<DataGridTemplateColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+									<Setter Property="HorizontalContentAlignment" Value="Center" />
+								</Style>
+							</DataGridTemplateColumn.HeaderStyle>
+							<DataGridTemplateColumn.Header>
+								<TextBlock Text="Perfect Continuous" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel ToolTip="{Binding Simple.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
+											<Path.Data>
+												<PathGeometry Figures="{Binding PerfectContinuous.Timeline}"/>
+											</Path.Data>
+										</Path>
+										<TextBlock Text="{Binding Simple.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</TabItem>
+			<TabItem Height="60">
+				<TabItem.Header>
+					<Label Content="Irregular verbs" FontSize="20"/>
+				</TabItem.Header>
+			</TabItem>
+			<TabItem Height="60">
+				<TabItem.Header>
+					<Label Content="Practice" FontSize="20"/>
+				</TabItem.Header>
+			</TabItem>
+		</TabControl>
 	</Grid>
 </Page>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JustEng.ViewModels.Base
 {
-	internal abstract class ViewModelBase : INotifyPropertyChanged
+	internal abstract class BaseViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)

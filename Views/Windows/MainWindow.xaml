@@ -7,23 +7,38 @@
         xmlns:local="clr-namespace:JustEng"
         xmlns:vm="clr-namespace:JustEng.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="597" Width="882"
+        Title="MainWindow" Height="720" Width="1200"
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		xmlns:cmd="crl-namespace:JustEng.Infrastructure.Commands"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="Lucida Sans Unicode"
+		
+		>
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
+	<Window.Resources>
+		
+	</Window.Resources>
 	<DockPanel>
-		<Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=mWindow, Mode=OneWay}" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="Lime" HorizontalContentAlignment="Stretch" DockPanel.Dock="Top">
-			<MenuItem Header="Flashcard"></MenuItem>
-			<MenuItem Header="Tense"></MenuItem>
+		<Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=mWindow, Mode=OneWay}" 
+			  VerticalAlignment="Top" 
+			  VerticalContentAlignment="Center" 
+			  Foreground="White" 
+			  HorizontalContentAlignment="Stretch" 
+			  DockPanel.Dock="Top"
+			  BorderBrush="White"
+			  BorderThickness="0,0,0,3">
+			<MenuItem Header="Main" Command="{Binding OpenMainPageCommand}">
+			</MenuItem>
+			<MenuItem Header="Flashcard" Command="{Binding OpenFlashcardPageCommand}"></MenuItem>
+			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"></MenuItem>
 		</Menu>
-		<Frame/>
+		<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
 	</DockPanel>
 </Window>
