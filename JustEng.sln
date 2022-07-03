@@ -5,7 +5,9 @@ VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustEng", "JustEng.csproj", "{A9431425-A810-41DF-8E76-B9A3E6DDBA0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustEngConlose", "..\JustEngConlose\JustEngConlose.csproj", "{52CFCBB6-DB0B-4101-96AC-B1384CF757F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustEngConlose", "..\JustEngConlose\JustEngConlose.csproj", "{52CFCBB6-DB0B-4101-96AC-B1384CF757F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustEngTestGUI", "..\JustEngTestGUI\JustEngTestGUI.csproj", "{AFC16CB4-C4B6-451C-A0F6-5BC8E2910047}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{52CFCBB6-DB0B-4101-96AC-B1384CF757F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52CFCBB6-DB0B-4101-96AC-B1384CF757F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52CFCBB6-DB0B-4101-96AC-B1384CF757F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFC16CB4-C4B6-451C-A0F6-5BC8E2910047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFC16CB4-C4B6-451C-A0F6-5BC8E2910047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFC16CB4-C4B6-451C-A0F6-5BC8E2910047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFC16CB4-C4B6-451C-A0F6-5BC8E2910047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

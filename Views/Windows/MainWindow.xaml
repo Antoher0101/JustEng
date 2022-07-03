@@ -16,9 +16,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="Lucida Sans Unicode"
-		
-		>
+        FontFamily="Lucida Sans Unicode">
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
