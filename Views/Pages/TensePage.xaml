@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:JustEng.Pages" 
 	  xmlns:vm="clr-namespace:JustEng.ViewModels"
 	  xmlns:tenses="clr-namespace:JustEng.Models.Tenses"
-	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="JustEng.Pages.TensePage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:base="clr-namespace:JustEng.Models.Tenses.Base"
+      x:Class="JustEng.Pages.TensePage"
 	  mc:Ignorable="d" 
       d:DesignHeight="653" d:DesignWidth="1200"
       Title="TensePage">
@@ -23,6 +25,14 @@
 				<DataGrid Margin="20" VerticalAlignment="Top" FontSize="20" ItemsSource="{Binding Tenses}" AutoGenerateColumns="False" 
 						  IsReadOnly="True"
 						  SelectionMode="Single" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False" MinRowHeight="120">
+					<DataGrid.Resources>
+						<Style x:Key="DescriptionText" TargetType="TextBlock">
+							<Setter Property="FontSize" Value="16"/>
+							<Setter Property="HorizontalAlignment" Value="Stretch"/>
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="TextWrapping" Value="Wrap"/>
+						</Style>
+					</DataGrid.Resources>
 					<!--Empty column-->
 					<DataGrid.Columns>
 						<DataGridTemplateColumn Width="0.5*">
@@ -47,16 +57,16 @@
 								<TextBlock Text="Simple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
-								<DataTemplate DataType="tenses:Simple">
+								<DataTemplate>
 									<StackPanel ToolTip="{Binding Simple.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
+										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 10">
 											<Path.Data>
 												<PathGeometry Figures="{Binding Simple.Timeline}"/>
 											</Path.Data>
 										</Path>
-										<TextBlock Text="{Binding Simple.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Simple.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Simple.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.Positive}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.Negative}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Simple.Auxiliary.Question}" Style="{StaticResource DescriptionText}"/>
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -72,16 +82,16 @@
 								<TextBlock Text="Continuous" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
-								<DataTemplate DataType="tenses:Continuous">
+								<DataTemplate>
 									<StackPanel ToolTip="{Binding Continuous.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
 										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
 											<Path.Data>
 												<PathGeometry Figures="{Binding Continuous.Timeline}"/>
 											</Path.Data>
 										</Path>
-										<TextBlock Text="{Binding Continuous.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Continuous.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Continuous.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Continuous.Auxiliary.Positive}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Continuous.Auxiliary.Negative}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Continuous.Auxiliary.Question}" Style="{StaticResource DescriptionText}"/>
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -97,16 +107,16 @@
 								<TextBlock Text="Perfect" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
-								<DataTemplate DataType="tenses:Perfect">
+								<DataTemplate>
 									<StackPanel ToolTip="{Binding Perfect.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
 										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
 											<Path.Data>
 												<PathGeometry Figures="{Binding Perfect.Timeline}"/>
 											</Path.Data>
 										</Path>
-										<TextBlock Text="{Binding Perfect.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Perfect.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding Perfect.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding Perfect.Auxiliary.Positive}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Perfect.Auxiliary.Negative}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding Perfect.Auxiliary.Question}" Style="{StaticResource DescriptionText}"/>
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -122,16 +132,16 @@
 								<TextBlock Text="Perfect Continuous" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
-								<DataTemplate DataType="tenses:PerfectContinuous">
+								<DataTemplate>
 									<StackPanel ToolTip="{Binding PerfectContinuous.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
 										<Path Width="Auto" Height="Auto" Fill="#FFFFFFFF" StrokeThickness="0.3" HorizontalAlignment="Center" Margin="0 10 0 0">
 											<Path.Data>
 												<PathGeometry Figures="{Binding PerfectContinuous.Timeline}"/>
 											</Path.Data>
 										</Path>
-										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.positive}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.negative}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.question}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.Positive}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.Negative}" Style="{StaticResource DescriptionText}"/>
+										<TextBlock Text="{Binding PerfectContinuous.Auxiliary.Question}" Style="{StaticResource DescriptionText}"/>
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>

@@ -37,8 +37,8 @@ namespace JustEng.Models.Tenses.Base
 	}
 	struct auxiliary
 	{
-		public string positive;
-		public string negative;
-		public string question;
+		public string Positive { get; set; }
+		public string Negative { get; set; }
+		public string Question { get; set; }
 	}
 }
