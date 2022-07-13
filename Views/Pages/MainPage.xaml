@@ -7,9 +7,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
-
+	<Page.DataContext>
+		"JustEng.ViewModels.MainWindowViewModel"
+	</Page.DataContext>
 	<Grid>
-		<TextBlock HorizontalAlignment="Left" Margin="267,145,0,0" TextWrapping="Wrap" Text="The Main Page" FontSize="50" TextAlignment="Center" VerticalAlignment="Center" Width="402" Height="183"/>
+		<Label Content="At first, select a section for training" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Margin="0,100,0,0"/>
+		<WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Center" MaxWidth="570">
 
+			<Button Margin="10" Width="170" Height="75" Style="{StaticResource RoundButton}" Command="{Binding OpenTensePageCommand}">
+				<StackPanel>
+					<TextBlock x:Name="LearnTenseText" Text="Learn Tenses" FontSize="18" HorizontalAlignment="Center"/>
+					<Rectangle Fill="White" 
+							   Margin="0 5 0 0"
+							   Height="0.5" Width="{Binding ElementName=LearnTenseText, Path=ActualWidth}"/>
+				</StackPanel>
+			</Button>
+			<Button Margin="10" Width="170" Height="75" Style="{StaticResource RoundButton}" Command="{Binding OpenFlashcardPageCommand}" >
+				<StackPanel>
+					<TextBlock x:Name="LearnFlashcardsText" Text="Learn Flashcards" FontSize="18" HorizontalAlignment="Center"/>
+					<Rectangle Fill="White" 
+							   Margin="0 5 0 0"
+							   Height="0.5" Width="{Binding ElementName=LearnFlashcardsText, Path=ActualWidth}"/>
+				</StackPanel>
+			</Button>
+			<Button Margin="10" x:Name="lSomething" Width="170" Height="75" Style="{StaticResource RoundButton}" >
+				<StackPanel>
+					<TextBlock x:Name="LearnSmthElse" Text="Learn Something else" FontSize="18" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Center"/>
+					<Rectangle Fill="White" 
+							   Margin="0 5 0 0"
+							   Height="0.5" Width="{Binding ElementName=LearnSmthElse, Path=ActualWidth}"/>
+				</StackPanel>
+			</Button>
+		</WrapPanel>
 	</Grid>
 </Page>

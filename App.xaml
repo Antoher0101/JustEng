@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:JustEng"
 			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="Views\Windows\MainWindow.xaml">
+			 xmlns:vm="clr-namespace:JustEng.ViewModels"
+			 StartupUri="Views\Windows\MainWindow.xaml">
     <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Purple"  SecondaryColor="Lime" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+			<Style TargetType="Button" x:Key="RoundButton" BasedOn="{StaticResource MaterialDesignPaperButton}">
+				<Style.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="15" />
+					</Style>
+				</Style.Resources>
+			</Style>
+			<vm:ViewModelLocator x:Key="Locator"/>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
