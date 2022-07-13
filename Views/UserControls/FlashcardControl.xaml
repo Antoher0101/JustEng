@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="JustEng.Views.UserControls.FlashcardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="720"
+             d:DesignWidth="1200"
+             x:Name="FControl">
+	<DockPanel Margin="16">
+		<materialDesign:Flipper>
+			<materialDesign:Flipper.FrontContent>
+				<Border Margin="20">
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.8" Color="{StaticResource MaterialDesignShadow}"/>
+					</Border.Effect>
+					<Grid Cursor="Hand">
+						<Rectangle Fill="{StaticResource MaterialDesignDarkBackground}" RadiusX="20" RadiusY="20"/>
+						<TextBlock Background="Transparent" FontSize="30" FontWeight="Medium" Foreground="{StaticResource MaterialDesignDarkForeground}"
+			           TextAlignment="Center" 
+			           TextWrapping="Wrap" 
+			           Padding="20" 
+			           HorizontalAlignment="Center" VerticalAlignment="Center"
+			           Text="{Binding FlashcardSource.Face, ElementName=FControl}"/>
+						<Grid.InputBindings>
+							<MouseBinding MouseAction="LeftClick" Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
+						</Grid.InputBindings>
+					</Grid>
+				</Border>
+			</materialDesign:Flipper.FrontContent>
+			<materialDesign:Flipper.BackContent>
+				<Border Margin="20">
+					<Border.Effect>
+						<DropShadowEffect Opacity="0.8" BlurRadius="15" Color="{StaticResource MaterialDesignShadow}"/>
+					</Border.Effect>
+					<Grid Cursor="Hand">
+						<Rectangle Fill="{StaticResource MaterialDesignDarkBackground}" RadiusX="20" RadiusY="20"/>
+						<TextBlock Background="Transparent" FontSize="30" FontWeight="Medium" Foreground="{StaticResource MaterialDesignDarkForeground}"
+						           TextAlignment="Center" 
+						           TextWrapping="Wrap" 
+						           Padding="20" 
+						           Text="{Binding ElementName=FControl, Path=FlashcardSource.Back, FallbackValue=None}" 
+						           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						<Grid.InputBindings>
+							<MouseBinding MouseAction="LeftClick" Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
+						</Grid.InputBindings>
+					</Grid>
+				</Border>
+			</materialDesign:Flipper.BackContent>
+		</materialDesign:Flipper>
+	</DockPanel>
+</UserControl>

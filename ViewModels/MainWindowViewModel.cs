@@ -1,14 +1,13 @@
 ﻿using JustEng.Infrastructure.Commands;
-using JustEng.Models.Tenses;
 using JustEng.ViewModels.Base;
-using System;
-using System.Collections.ObjectModel;
+using JustEng.Views.Pages;
+
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace JustEng.ViewModels
 {
-	internal class MainWindowViewModel : BaseViewModel
+	public class MainWindowViewModel : BaseViewModel
 	{
 		private Page _MainPage;
 		private Page _TensePage;
@@ -27,45 +26,51 @@ namespace JustEng.ViewModels
 		#endregion
 
 		#region Command defenitions
-		public ICommand AnyCommand { get; }
+
+		private ICommand _AnyCommand;
+		public ICommand AnyCommand => _AnyCommand
+			??= new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
 		private bool CanAnyCommandExecute(object p) => true;
 		private void OnAnyCommandExecuted(object p)
 		{
 			// Command logic
 		}
-		public ICommand OpenMainPageCommand { get; }
+		
+		private ICommand _OpenMainPageCommand;
+		public ICommand OpenMainPageCommand => _OpenMainPageCommand
+			  ??= new RelayCommand(OnOpenMainPageCommandExecuted, CanOpenMainPageCommandExecute);
+
 		private bool CanOpenMainPageCommandExecute(object p) => true;
 		private void OnOpenMainPageCommandExecuted(object p)
 		{
 			CurrentPage = _MainPage;
 		}
-		public ICommand OpenTensePageCommand { get; }
+
+		private ICommand _OpenTensePageCommand;
+		public ICommand OpenTensePageCommand => _OpenTensePageCommand 
+			??= new RelayCommand(OnOpenTensePageCommandExecuted, CanOpenTensePageCommandExecute);
 		private bool CanOpenTensePageCommandExecute(object p) => true;
 		private void OnOpenTensePageCommandExecuted(object p)
 		{
-			CurrentPage = _TensePage;
+			CurrentPage = _TensePage ??= new TensePage();
 
 		}
-		public ICommand OpenFlashcardPageCommand { get; }
+		private ICommand _OpenFlashcardPageCommand;
+		public ICommand OpenFlashcardPageCommand => _OpenFlashcardPageCommand
+			  ??= new RelayCommand(OnOpenFlashcardPageCommandExecuted, CanOpenFlashcardPageCommandExecute);
+
 		private bool CanOpenFlashcardPageCommandExecute(object p) => true;
 		private void OnOpenFlashcardPageCommandExecuted(object p)
 		{
-			CurrentPage = _FlashcardPage;
+			CurrentPage = _FlashcardPage ??= new FlashcardPage();
 		}
 		#endregion
+
+		
 		public MainWindowViewModel()
 		{
-			#region Init commands
-			AnyCommand = new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
-			OpenMainPageCommand = new RelayCommand(OnOpenMainPageCommandExecuted, CanOpenMainPageCommandExecute);
-			OpenTensePageCommand = new RelayCommand(OnOpenTensePageCommandExecuted, CanOpenTensePageCommandExecute);
-			OpenFlashcardPageCommand = new RelayCommand(OnOpenFlashcardPageCommandExecuted, CanOpenFlashcardPageCommandExecute);
-			#endregion
-
 			#region Init Pages
-			_MainPage = new Pages.MainPage() { DataContext = this };
-			_TensePage = new Pages.TensePage();
-			_FlashcardPage = new Pages.FlashcardPage();
+			_MainPage = new MainPage() { DataContext = this };
 			CurrentPage = _MainPage;
 			#endregion
 		}
