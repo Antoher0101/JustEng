@@ -6,6 +6,12 @@ using JustEng.ViewModels.Base;
 using System;
 using System.Linq;
 using System.Windows.Input;
+using JustEng.Infrastructure;
+
+// todo: Библиотека карточек
+// todo: При переключении карточек показывается всегда Основная сторона
+// todo: Анимация перелистывания карточек
+// todo: Смена основной остороны карточки
 
 namespace JustEng.ViewModels
 {
@@ -94,6 +100,7 @@ namespace JustEng.ViewModels
 		}
 
 		#endregion
+
 		#region Command PrevFlashcardCommand - Предыдущая карточка
 
 		private ICommand _PrevFlashcardCommand;
@@ -118,6 +125,27 @@ namespace JustEng.ViewModels
 		}
 
 		#endregion
+
+		#region Command ShuffleFlashcardsCommand - Перемешать карточки
+
+		private ICommand _ShuffleFlashcardsCommand;
+
+		public ICommand ShuffleFlashcardsCommand => _ShuffleFlashcardsCommand
+			??= new RelayCommand(OnShuffleFlashcardsCommandExecuted, CanShuffleFlashcardsCommandExecute);
+
+		/// <summary>Проверка возможности выполнения - Перемешать карточки</summary>
+		private bool CanShuffleFlashcardsCommandExecute(object p) => true;
+
+		/// <summary>Логика выполнения - Перемешать карточки</summary>
+		private void OnShuffleFlashcardsCommandExecuted(object p)
+		{
+			var rand = new Random();
+			Utils.Shuffle(rand, Flashcards);
+			CurrentFlashcardNumber = 1;
+		}
+
+		#endregion
+
 		#endregion
 
 		public FlashcardPageViewModel(IRepository<Flashcard> flashcardRepository)

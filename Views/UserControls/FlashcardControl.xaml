@@ -11,7 +11,7 @@
 	<DockPanel Margin="16">
 		<materialDesign:Flipper>
 			<materialDesign:Flipper.FrontContent>
-				<Border Margin="20">
+				<Border Margin="20, 10">
 					<Border.Effect>
 						<DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.8" Color="{StaticResource MaterialDesignShadow}"/>
 					</Border.Effect>
