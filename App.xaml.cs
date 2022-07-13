@@ -31,15 +31,18 @@ namespace JustEng
 		private static IHost __Host;
 
 		public static IHost Host => __Host
-			??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+			??= CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
 		public static IServiceProvider Services => Host.Services;
 
-		internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-		   .AddDatabase(host.Configuration.GetSection("Database"))
-		   .AddServices()
-		   .AddViewModels()
-		;
+		public static IHostBuilder CreateHostBuilder(string[] args) => Microsoft.Extensions.Hosting.Host
+		   .CreateDefaultBuilder(args)
+		   .ConfigureServices(
+				(hostContext, services) => services
+				   .AddDatabase(hostContext.Configuration.GetSection("Database"))
+				   .AddServices()
+				   .AddViewModels()
+			);
 
 		protected override async void OnStartup(StartupEventArgs e)
 		{
