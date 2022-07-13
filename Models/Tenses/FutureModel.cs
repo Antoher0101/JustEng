@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JustEng.Models.Tenses
 {
-	internal class FutureModel : TenseBase
+	public class FutureModel : TenseBase
 	{
 		public FutureModel()
 		{
@@ -22,6 +22,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : shall/will + V",
 					Negative = "- : shall/will + V",
 					Question = "? : shall/will + V"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I will be there, I promise!", "She promises she will come back soon", "He will travel to California next month", "They will receive the money in 3 days", "We will work on important projects next month" },
+					Negative = new[] { "I will not drink coffee", "She will not be admitted to this college", "Water won’t boil at 0ºC", "We will not work on important projects next month", "Our manager won’t write me a recommendation" },
+					Interrogative = new[] { "What will I say to him?", "Will she wear her dress?", "Will he buy her a gift?", "Will they leave a tip?", "Will you bring your student card?" }
 				}
 			};
 			this.Continuous = new ContinuousTense()
@@ -33,6 +39,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : shall/will + be + V + ing",
 					Negative = "- : shall/will + be + V + ing",
 					Question = "? : shall/will + be + V + ing"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I shall be reading the paper then", "He’ll be working late at the office tonight", "While I am finishing my homework, she will be making dinner", "The people will be gathering in the town tomorrow", "They shall be playing hockey at that time" },
+					Negative = new[] { "I will not be going to bed late tonight", "He won’t be buying dinner for us", "She won't be planning any trips until after graduation", "Some students will not be doing their work regularly", "You will not be admitting your mistake" },
+					Interrogative = new[] { "Will the snow on the mountains be melting in July?", "Will she be calling her boss when she comes?", "Will he be eating lunch with us?", "Will they be talking to each other?", "Will you be flying today?" }
 				}
 			};
 			this.Perfect = new PerfectTense()
@@ -44,6 +56,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : shall/will + have + V(3,1) + d,ed",
 					Negative = "- : shall/will + have + V(3,1) + d,ed",
 					Question = "? : shall/will + have + V(3,1) + d,ed"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I will have taken tea by 10 p.m. today", "He will have passed the exam by the end of this year", "She will have completed her Europe tour by next month", "The procession will have dispersed before the police arrive", "They will have completed the work before I arrive" },
+					Negative = new[] { "I will not have reached the station before the train arrives", "He will not have passed the exam by the end of this year", "She will not have completed her Europe tour by next month", "It won’t have finished", "They will not have eaten mangoes" },
+					Interrogative = new[] { "Where will you have gone?", "Will he have passed the exam by the end of this year?", "Will she have completed her Europe tour by next month?", "Will it have finished?", "Will you have gone to school by 8 a.m. tomorrow?" }
 				}
 			};
 			this.PerfectContinuous = new PerfectContinuousTense()
@@ -55,6 +73,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : shall/will + have + been + V + ing",
 					Negative = "- : shall/will + have + not + been + V + ing",
 					Question = "? : shall/will + have + been + V + ing"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "By the end of this year, I will have been working here for 12 years", "By March, he will have been learning French for one month", "By 2023, Susan will have been writing fiction for over two years", "John and his wife will have been living together for 30 years by the next year", "They will have been talking for over an hour by when Steve arrives" },
+					Negative = new[] { "I will not have been eating", "He will not have been writing the essay since night", "She will not have been working a year before she goes on maternity leave", "We will not have been playing", "They will not have been cooking for very long" },
+					Interrogative = new[] { "Will I have been eating?", "Where will he have been living?", "Will she have been reading?", "Will the child have been sleeping since night?", "How long will you have been studying when you graduate?" }
 				}
 			};
 		}

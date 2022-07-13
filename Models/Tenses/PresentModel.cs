@@ -7,7 +7,7 @@ using JustEng.Models.Tenses.Base;
 
 namespace JustEng.Models.Tenses
 {
-	internal class PresentModel : TenseBase
+	public class PresentModel : TenseBase
 	{
 		public PresentModel()
 		{
@@ -21,6 +21,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : V + he, she, it + Vs, es",
 					Negative = "- : do, does + not + Vs, es",
 					Question = "? : do, does + Vs, es"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I take my meals at night", "He conspires against his friends", "It rains in winter", "They work hard all day", "We forget things all the time" },
+					Negative = new[] { "I don’t have any money", "She doesn’t work", "He doesn’t have a beard", "We don’t need a modern car", "They do not work hard all day" },
+					Interrogative = new[] { "Do you have any money?", "Does she need my help?", "Does he play video games?", "Do they work hard all day?", "Does man cling to hope even on the deathbed?" }
 				}
 			};
 			this.Continuous = new ContinuousTense()
@@ -32,6 +38,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : to be + V + ing",
 					Negative = "- : to be + V + ing",
 					Question = "? : to be + not + V + ing"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I am spending my vacations at a hill station", "She is learning French", "He is shooting the birds", "They are sitting idle", "Our leaders are working day and night for the prosperity of the country" },
+					Negative = new[] { "I am not spending my vacations at a hill station.", "She is not learning French.", "He is not shooting the birds.", "They are not sitting idle.", "Our leaders are not working day and night for the prosperity of the country." },
+					Interrogative = new[] { "Am I spending my vacations at a hill station?", "Is she learning French?", "Is he shooting the birds?", "Are they sitting idle?", "Are our leaders working day and night for the prosperity of the country?" }
 				}
 			};
 			this.Perfect = new PerfectTense()
@@ -43,6 +55,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : have/has + V(3,1) + d,ed",
 					Negative = "- : have/has + V(3,1) + d,ed",
 					Question = "? : have/has + not + V(3,1) + d,ed"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I have been to England three times", "Alice has studied two foreign languages", "Our son has learned how to read", "We have had many minor problems while working on this project", "Different kinds of machines have made our life at home highly comfortable" },
+					Negative = new[] { "I have not enjoyed the trip to the hill station", "He has not changed his residence", "She has never traveled by train alone", "They have not accepted our invitation", "We have not come to help you" },
+					Interrogative = new[] { "Have you grown rose plants?", "Has she taken the lunch?", "Who has presented the theory of relativity?", "Have they performed the duty?", "Have we taken the necessary things?" }
 				}
 			};
 			this.PerfectContinuous = new PerfectContinuousTense()
@@ -54,6 +72,12 @@ namespace JustEng.Models.Tenses
 					Positive = "+ : have/has + been + V + ing",
 					Negative = "- : have/has + been + V + ing",
 					Question = "? : have/has + not + been + V + ing"
+				},
+				Examples = new TenseExample()
+				{
+					Affirmative = new[] { "I have been living in Boston for two months", "He has been enjoying sound sleep for six hours", "My business has been making progress since 2012.", "The birds have been chirping since morning", "The workers have been building the house for many days" },
+					Negative = new[] { "I have not been attending the business meeting for two months. I am ill", "He has not been reading emails", "She has not been living with her family for many years", "They have not been complaining for days.", "Ships have not been sailing since last year" },
+					Interrogative = new[] { "Have you been living in this house for five years?", "Has it been snowing since night?", "Why have you been calling me?", "Have they been working for a noble cause?", "Have they been revolting since 1978?" }
 				}
 			};
 		}
