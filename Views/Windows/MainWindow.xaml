@@ -16,10 +16,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="Lucida Sans Unicode">
-	<Window.DataContext>
-		<vm:MainWindowViewModel/>
-	</Window.DataContext>
+        FontFamily="Lucida Sans Unicode"
+		DataContext="{Binding Path=MainWindowModel, Source={StaticResource Locator}}">
 	<Window.Resources>
 		
 	</Window.Resources>
@@ -32,10 +30,9 @@
 			  DockPanel.Dock="Top"
 			  BorderBrush="White"
 			  BorderThickness="0,0,0,3">
-			<MenuItem Header="Main" Command="{Binding OpenMainPageCommand}">
-			</MenuItem>
-			<MenuItem Header="Flashcard" Command="{Binding OpenFlashcardPageCommand}"></MenuItem>
-			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"></MenuItem>
+			<MenuItem Header="Main" Command="{Binding OpenMainPageCommand}"/>
+			<MenuItem Header="Flashcard" Command="{Binding OpenFlashcardPageCommand}"/>
+			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"/>
 		</Menu>
 		<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
 	</DockPanel>
