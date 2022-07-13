@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace JustEng
+namespace JustEng.Views.Windows
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JustEng.Models.Tenses.Base
 {
-	internal abstract class TenseBase
+	public abstract class TenseBase
 	{
 		public string Name { get; set; }
 		public SimpleTense Simple { get; set; }

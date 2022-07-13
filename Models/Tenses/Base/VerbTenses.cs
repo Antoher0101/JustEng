@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace JustEng.Models.Tenses.Base
 {
-	internal abstract class VerbTenses
+	public abstract class VerbTenses
 	{
 		public string Name { get; private set; }
 		public string Description { get; set; }
-		public string[] Examples { get; set; }
+		public TenseExample Examples { get; set; }
 		public auxiliary Auxiliary { get; set; }
 		public VerbTenses(string name)
 		{
@@ -19,26 +19,33 @@ namespace JustEng.Models.Tenses.Base
 		}
 		public string Timeline { get; set; }
 	}
-	internal class SimpleTense : VerbTenses
+	public class SimpleTense : VerbTenses
 	{
 		public SimpleTense() : base("Simple") { }
 	}
-	internal class ContinuousTense : VerbTenses
+	public class ContinuousTense : VerbTenses
 	{
 		public ContinuousTense() : base("Continuous") { }
 	}
-	internal class PerfectTense : VerbTenses
+	public class PerfectTense : VerbTenses
 	{
 		public PerfectTense() : base("Perfect") { }
 	}
-	internal class PerfectContinuousTense : VerbTenses
+	public class PerfectContinuousTense : VerbTenses
 	{
 		public PerfectContinuousTense() : base("Perfect Continuous") { }
 	}
-	struct auxiliary
+	public struct auxiliary
 	{
 		public string Positive { get; set; }
 		public string Negative { get; set; }
 		public string Question { get; set; }
+	}
+
+	public struct TenseExample
+	{
+		public string[] Affirmative { get; set; }
+		public string[] Interrogative { get; set; }
+		public string[] Negative { get; set; }
 	}
 }

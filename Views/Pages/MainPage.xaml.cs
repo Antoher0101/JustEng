@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace JustEng.Pages
+namespace JustEng.Views.Pages
 {
 	/// <summary>
 	/// Логика взаимодействия для MainPage.xaml
