@@ -10,5 +10,6 @@ namespace JustEng.JustEngDAL.Entities
 		public virtual string Face { get; set; }
 		public virtual string Back { get; set; }
 		public virtual int? Check { get; set; }
+		public virtual Library Library { get; set; }
 	}
 }

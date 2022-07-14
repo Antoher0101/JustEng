@@ -6,6 +6,7 @@ namespace JustEng.ViewModels
 	{
 		public static IServiceCollection AddViewModels(this IServiceCollection services) => services
 		   .AddScoped<MainWindowViewModel>()
+		   .AddScoped<LibraryPageViewModel>()
 		   .AddScoped<FlashcardPageViewModel>()
 		;
 	}

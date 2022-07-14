@@ -1,22 +1,25 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using JustEng.JustEngDAL.DatabaseContext;
+﻿using JustEng.JustEngDAL.DatabaseContext;
 using JustEng.JustEngDAL.Entities.Base;
-
 using JustEng.JustEngInterfaces;
 
 using Microsoft.EntityFrameworkCore;
+
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using JustEng.JustEngDAL.Entities;
 
 namespace JustEng.JustEngDAL
 {
 	internal class DbRepository<T> : IRepository<T> where T : Entity, new()
 	{
-		private readonly FlashcardsDBContext _db;
+		private readonly LibraryDBContext _db;
 		private readonly DbSet<T> _set;
+
 		public bool AutoSaveChanges { get; set; } = true;
-		public DbRepository(FlashcardsDBContext db)
+
+		public DbRepository(LibraryDBContext db)
 		{
 			_db = db;
 			_set = db.Set<T>();
@@ -42,7 +45,7 @@ namespace JustEng.JustEngDAL
 		}
 		public T Delete(int id)
 		{
-			var item = new T() {Id = id};
+			var item = new T() { Id = id };
 			_db.Remove(item);
 			if (AutoSaveChanges)
 				_db.SaveChanges();
@@ -56,7 +59,7 @@ namespace JustEng.JustEngDAL
 				_db.SaveChangesAsync(Cancel);
 			return item;
 		}
-		public T Get(int id) =>  Items.SingleOrDefault(item => item.Id == id);
+		public T Get(int id) => Items.SingleOrDefault(item => item.Id == id);
 		public async Task<T> GetAsync(int id, CancellationToken Cancel = default) => await Items
 			.SingleOrDefaultAsync(item => item.Id == id, Cancel)
 			.ConfigureAwait(false);
@@ -76,5 +79,11 @@ namespace JustEng.JustEngDAL
 				_db.SaveChangesAsync(Cancel);
 			return item;
 		}
+	}
+
+	internal class LibrariesRepository : DbRepository<Library>
+	{
+		public override IQueryable<Library> Items => base.Items.Include(item => item.Flashcards);
+		public LibrariesRepository(LibraryDBContext db) : base(db) { }
 	}
 }

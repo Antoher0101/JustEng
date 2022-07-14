@@ -12,6 +12,7 @@ namespace JustEng.ViewModels
 		private Page _MainPage;
 		private Page _TensePage;
 		private Page _FlashcardPage;
+		private Page _LibraryPage;
 
 
 		#region Properties
@@ -62,7 +63,7 @@ namespace JustEng.ViewModels
 		private bool CanOpenFlashcardPageCommandExecute(object p) => true;
 		private void OnOpenFlashcardPageCommandExecuted(object p)
 		{
-			CurrentPage = _FlashcardPage ??= new FlashcardPage();
+			CurrentPage = _LibraryPage ??= new LibraryPage();
 		}
 		#endregion
 

@@ -10,6 +10,7 @@ namespace JustEng.JustEngDAL
 	{
 		public static IServiceCollection AddRepositories(this IServiceCollection services) => services
 			.AddTransient<IRepository<Flashcard>, DbRepository<Flashcard>>()
+			.AddTransient<IRepository<Library>, LibrariesRepository>()
 		;
 	}
 }

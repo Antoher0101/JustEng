@@ -148,12 +148,12 @@ namespace JustEng.ViewModels
 
 		#endregion
 
-		public FlashcardPageViewModel(IRepository<Flashcard> flashcardRepository)
+		public FlashcardPageViewModel(/*IRepository<Flashcard> flashcardRepository*/)
 		{
-			_flashcardRepository = flashcardRepository;
-			Flashcards = _flashcardRepository.Items.ToArray();
-			TotalFlashcards = Flashcards.Length;
-			CurrentFlashcardNumber = 1;
+			//_flashcardRepository = flashcardRepository;
+			//Flashcards = _flashcardRepository.Items.ToArray();
+			//TotalFlashcards = Flashcards.Length;
+			//CurrentFlashcardNumber = 1;
 		}
 	}
 }
