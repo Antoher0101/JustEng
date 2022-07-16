@@ -9,18 +9,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JustEng.ViewModels
 {
-	public class MainWindowViewModel : BaseViewModel
+	public class MainWindowViewModel : ViewModelBase
 	{
-		private BaseViewModel _MainPage;
-		private BaseViewModel _TensePage;
-		private BaseViewModel _FlashcardPage;
-		private BaseViewModel _LibraryPage;
+		private ViewModelBase _MainPage;
+		private ViewModelBase _TensePage;
+		private ViewModelBase _FlashcardPage;
+		private ViewModelBase _LibraryPage;
 
 
 		#region Properties
 
-		private BaseViewModel _currentViewModel;
-		public BaseViewModel CurrentViewModel { get => _currentViewModel; set => Set(ref _currentViewModel, value); }
+		private ViewModelBase _currentViewModel;
+		public ViewModelBase CurrentViewModel { get => _currentViewModel; set => Set(ref _currentViewModel, value); }
 
 
 		#endregion

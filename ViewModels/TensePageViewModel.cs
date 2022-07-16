@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace JustEng.ViewModels
 {
-	public class TensePageViewModel : BaseViewModel
+	public class TensePageViewModel : ViewModelBase
 	{
 		#region Properties
 

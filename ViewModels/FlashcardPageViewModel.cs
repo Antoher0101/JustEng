@@ -15,7 +15,7 @@ using JustEng.Infrastructure;
 
 namespace JustEng.ViewModels
 {
-	public partial class FlashcardPageViewModel : BaseViewModel
+	public partial class FlashcardPageViewModel : ViewModelBase
 	{
 		private IRepository<Flashcard> _flashcardRepository { get; set; }
 

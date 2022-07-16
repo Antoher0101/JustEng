@@ -9,7 +9,7 @@ using JustEng.ViewModels.Base;
 
 namespace JustEng.ViewModels
 {
-	public class LibraryPageViewModel : BaseViewModel
+	public class LibraryPageViewModel : ViewModelBase
 	{
 		private readonly IRepository<Library> _libraryRepository;
 
