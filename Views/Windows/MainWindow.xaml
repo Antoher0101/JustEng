@@ -28,15 +28,15 @@
 			  DockPanel.Dock="Top"
 			  BorderBrush="{StaticResource MaterialDesignDarkSeparatorBackground}"
 			  BorderThickness="0,0,0,3">
-			<MenuItem Header="Home" Command="{Binding OpenMainPageCommand}"/>
+			<MenuItem Header="Home" Command="{Binding OpenHomePageCommand}"/>
 			<MenuItem Header="Flashcards" Command="{Binding OpenLibraryPageCommand}"/>
 			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"/>
 		</Menu>
 		<!--<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>-->
 		<ContentControl Content="{Binding CurrentViewModel}">
 			<ContentControl.Resources>
-				<DataTemplate DataType="{x:Type viewmodels:MainWindowViewModel}">
-					<pages:MainPage/>
+				<DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
+					<pages:HomePage/>
 				</DataTemplate>
 				<DataTemplate DataType="{x:Type viewmodels:TensePageViewModel}">
 					<pages:TensePage/>
