@@ -12,7 +12,7 @@ using JustEng.JustEngDAL.Entities;
 
 namespace JustEng.JustEngDAL
 {
-	internal class DbRepository<T> : IRepository<T> where T : Entity, new()
+	public class DbRepository<T> : IRepository<T> where T : Entity, new()
 	{
 		private readonly LibraryDBContext _db;
 		private readonly DbSet<T> _set;
@@ -45,7 +45,7 @@ namespace JustEng.JustEngDAL
 		}
 		public T Delete(int id)
 		{
-			var item = new T() { Id = id };
+			var item = Get(id);
 			_db.Remove(item);
 			if (AutoSaveChanges)
 				_db.SaveChanges();
@@ -53,7 +53,7 @@ namespace JustEng.JustEngDAL
 		}
 		public async Task<T> DeleteAsync(int id, CancellationToken Cancel = default)
 		{
-			var item = new T() { Id = id };
+			var item = GetAsync(id).Result;
 			_db.Remove(item);
 			if (AutoSaveChanges)
 				_db.SaveChangesAsync(Cancel);
@@ -61,8 +61,8 @@ namespace JustEng.JustEngDAL
 		}
 		public T Get(int id) => Items.SingleOrDefault(item => item.Id == id);
 		public async Task<T> GetAsync(int id, CancellationToken Cancel = default) => await Items
-			.SingleOrDefaultAsync(item => item.Id == id, Cancel)
-			.ConfigureAwait(false);
+		   .SingleOrDefaultAsync(item => item.Id == id, Cancel)
+		   .ConfigureAwait(false);
 		public T Update(T item)
 		{
 			if (item is null) throw new ArgumentNullException(nameof(item));
@@ -79,9 +79,8 @@ namespace JustEng.JustEngDAL
 				_db.SaveChangesAsync(Cancel);
 			return item;
 		}
-	}
 
-	internal class LibrariesRepository : DbRepository<Library>
+	}public class LibrariesRepository : DbRepository<Library>
 	{
 		public override IQueryable<Library> Items => base.Items.Include(item => item.Flashcards);
 		public LibrariesRepository(LibraryDBContext db) : base(db) { }
