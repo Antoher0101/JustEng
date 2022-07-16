@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+		xmlns:viewmodels="clr-namespace:JustEng.ViewModels"
+		xmlns:pages="clr-namespace:JustEng.Views.Pages"
+		mc:Ignorable="d"
 		Title="MainWindow" Height="770" Width="1200"
 		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,18 +20,34 @@
 		
 	</Window.Resources>
 	<DockPanel>
-		<Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=mWindow, Mode=OneWay}" 
+		<Menu Width="{Binding ActualWidth, ElementName=mWindow, Mode=OneWay}" 
 			  VerticalAlignment="Top" 
 			  VerticalContentAlignment="Center" 
-			  Foreground="White" 
+			  Foreground="{StaticResource MaterialDesignDarkForeground}" 
 			  HorizontalContentAlignment="Stretch" 
 			  DockPanel.Dock="Top"
-			  BorderBrush="White"
+			  BorderBrush="{StaticResource MaterialDesignDarkSeparatorBackground}"
 			  BorderThickness="0,0,0,3">
-			<MenuItem Header="Main" Command="{Binding OpenMainPageCommand}"/>
-			<MenuItem Header="Flashcard" Command="{Binding OpenFlashcardPageCommand}"/>
+			<MenuItem Header="Home" Command="{Binding OpenMainPageCommand}"/>
+			<MenuItem Header="Flashcards" Command="{Binding OpenLibraryPageCommand}"/>
 			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"/>
 		</Menu>
-		<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+		<!--<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>-->
+		<ContentControl Content="{Binding CurrentViewModel}">
+			<ContentControl.Resources>
+				<DataTemplate DataType="{x:Type viewmodels:MainWindowViewModel}">
+					<pages:MainPage/>
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type viewmodels:TensePageViewModel}">
+					<pages:TensePage/>
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type viewmodels:LibraryPageViewModel}">
+					<pages:LibraryPage/>
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type viewmodels:FlashcardPageViewModel}">
+					<pages:FlashcardPage/>
+				</DataTemplate>
+			</ContentControl.Resources>
+		</ContentControl>
 	</DockPanel>
 </Window>

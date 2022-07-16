@@ -1,28 +1,27 @@
-﻿using JustEng.Infrastructure.Commands;
+﻿using System;
+using JustEng.Infrastructure.Commands;
 using JustEng.ViewModels.Base;
 using JustEng.Views.Pages;
 
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JustEng.ViewModels
 {
 	public class MainWindowViewModel : BaseViewModel
 	{
-		private Page _MainPage;
-		private Page _TensePage;
-		private Page _FlashcardPage;
-		private Page _LibraryPage;
+		private BaseViewModel _MainPage;
+		private BaseViewModel _TensePage;
+		private BaseViewModel _FlashcardPage;
+		private BaseViewModel _LibraryPage;
 
 
 		#region Properties
 
-		private Page _currentPage;
-		public Page CurrentPage
-		{
-			get => _currentPage;
-			set => Set(ref _currentPage, value);
-		}
+		private BaseViewModel _currentViewModel;
+		public BaseViewModel CurrentViewModel { get => _currentViewModel; set => Set(ref _currentViewModel, value); }
+
 
 		#endregion
 
@@ -44,17 +43,17 @@ namespace JustEng.ViewModels
 		private bool CanOpenMainPageCommandExecute(object p) => true;
 		private void OnOpenMainPageCommandExecuted(object p)
 		{
-			CurrentPage = _MainPage;
+			CurrentViewModel = _MainPage ??= App.Services.GetRequiredService<MainWindowViewModel>();
 		}
 
 		private ICommand _OpenTensePageCommand;
 		public ICommand OpenTensePageCommand => _OpenTensePageCommand 
 			??= new RelayCommand(OnOpenTensePageCommandExecuted, CanOpenTensePageCommandExecute);
+
 		private bool CanOpenTensePageCommandExecute(object p) => true;
 		private void OnOpenTensePageCommandExecuted(object p)
 		{
-			CurrentPage = _TensePage ??= new TensePage();
-
+			CurrentViewModel = _TensePage ??= App.Services.GetRequiredService<TensePageViewModel>();
 		}
 		private ICommand _OpenFlashcardPageCommand;
 		public ICommand OpenFlashcardPageCommand => _OpenFlashcardPageCommand
@@ -63,17 +62,24 @@ namespace JustEng.ViewModels
 		private bool CanOpenFlashcardPageCommandExecute(object p) => true;
 		private void OnOpenFlashcardPageCommandExecuted(object p)
 		{
-			CurrentPage = _LibraryPage ??= new LibraryPage();
+			CurrentViewModel = _FlashcardPage ??= App.Services.GetRequiredService<FlashcardPageViewModel>();
+		}
+
+		private ICommand _OpenLibraryPageCommand;
+		public ICommand OpenLibraryPageCommand => _OpenLibraryPageCommand
+			??= new RelayCommand(OnOpenLibraryPageCommandExecuted, CanOpenLibraryPageCommandExecute);
+
+		private bool CanOpenLibraryPageCommandExecute(object p) => true;
+		private void OnOpenLibraryPageCommandExecuted(object p)
+		{
+			CurrentViewModel = _LibraryPage ??= App.Services.GetRequiredService<LibraryPageViewModel>();
 		}
 		#endregion
 
-		
+
 		public MainWindowViewModel()
 		{
-			#region Init Pages
-			_MainPage = new MainPage() { DataContext = this };
-			CurrentPage = _MainPage;
-			#endregion
+			CurrentViewModel = this;
 		}
 	}
 }

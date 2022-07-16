@@ -22,7 +22,7 @@
 			           TextWrapping="Wrap" 
 			           Padding="20" 
 			           HorizontalAlignment="Center" VerticalAlignment="Center"
-			           Text="{Binding FlashcardSource.Face, ElementName=FControl}"/>
+			           Text="{Binding FlashcardSource.Face, ElementName=FControl, FallbackValue=None}"/>
 						<Grid.InputBindings>
 							<MouseBinding MouseAction="LeftClick" Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
 						</Grid.InputBindings>

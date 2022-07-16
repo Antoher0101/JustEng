@@ -21,33 +21,14 @@ namespace JustEng.ViewModels
 		public PresentModel Present { get; set; } = new();
 		public PastModel Past { get; set; } = new();
 		public FutureModel Future { get; set; } = new();
-		#endregion
-
-		public ICommand AnyCommand { get; }
-
-		private bool CanAnyCommandExecute(object p) => true;
-		private void OnAnyCommandExecuted(object p)
-		{
-			Console.WriteLine("it works");
-		}
-
-		#region commands
-		
 
 		#endregion
+
 		public TensePageViewModel()
 		{
-			#region Init commands
-
-			AnyCommand = new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
-			
-			#endregion
-
 			Tenses.Add(Present);
 			Tenses.Add(Past);
 			Tenses.Add(Future);
-
-			
 		}
 	}
 }

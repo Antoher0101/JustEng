@@ -1,4 +1,4 @@
-﻿<Page x:Class="JustEng.Views.Pages.LibraryPage"
+﻿<ContentControl x:Class="JustEng.Views.Pages.LibraryPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,13 +13,16 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal" 
       TextOptions.TextRenderingMode="Auto"        
-      Background="{DynamicResource MaterialDesignPaper}"
-      FontFamily="Lucida Sans Unicode"
+      Background="{DynamicResource MaterialDesignPaper}" 
+      FontFamily="Segoe UI"
       d:DesignHeight="720" d:DesignWidth="1200"
       DataContext="{Binding LibraryModel, Source={StaticResource Locator}}">
-
-    <Grid>
-		<DockPanel Margin="16">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="113*"/>
+			<RowDefinition Height="7*"/>
+		</Grid.RowDefinitions>
+		<DockPanel Margin="16" Grid.RowSpan="2">
 			<DockPanel.Resources>
 				<Style TargetType="Button" BasedOn="{StaticResource  MaterialDesignOutlinedSecondaryDarkButton}">
 					<Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -31,22 +34,14 @@
 					<Setter Property="FontWeight" Value="Regular"/>
 				</Style>
 			</DockPanel.Resources>
-			<Label DockPanel.Dock="Top" FontSize="32" Content="Choose a repository" HorizontalAlignment="Right"/>
-			<TreeView MinWidth="770" ItemsSource="{Binding Libraries}" Margin="20,15" HorizontalAlignment="Stretch" DockPanel.Dock="Left">
-				<TreeView.ItemTemplate>
-					<DataTemplate DataType="entities:Library">
-						<TextBlock Text="{Binding Name}" Style="{StaticResource MaterialDesignButtonTextBlock}"/>
-					</DataTemplate>
-				</TreeView.ItemTemplate>
-			</TreeView>
-			
+
 			<DockPanel MinWidth="205" MaxWidth="300" LastChildFill="False" Margin="0,20,0,0" DockPanel.Dock="Right">
 				<Button DockPanel.Dock="Top" Command="{Binding ShuffleFlashcardsCommand}">
 					<Button.ContentTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
 								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="Random" Margin="0,0,8,0" Width="25"/>
-								<TextBlock  Text="Suffle"/>
+								<TextBlock Text="Suffle"/>
 							</StackPanel>
 						</DataTemplate>
 					</Button.ContentTemplate>
@@ -71,22 +66,32 @@
 						</DataTemplate>
 					</Button.ContentTemplate>
 				</Button>
-				<Button DockPanel.Dock="Bottom" Margin="0,0,0,0" Command="{Binding OpenRepositoryCommand}">
+
+				<Button DockPanel.Dock="Bottom" Margin="0,0,0,0" Command="NavigationCommands.GoToPage" CommandParameter="/FlashcardPage.xaml">
 					<Button.ContentTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
 								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="FolderOpen" Margin="0,0,8,0" Width="25"/>
-								<TextBlock Text="Open repository"/>
+								<TextBlock Text="Open library"/>
 							</StackPanel>
 						</DataTemplate>
 					</Button.ContentTemplate>
 				</Button>
 			</DockPanel>
-			<Separator Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" Width="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
+
+			<Separator Background="#1F000000" Width="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
+			           Margin="10,0,20,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
 				<Separator.Effect>
 					<DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="{StaticResource MaterialDesignShadow}"/>
 				</Separator.Effect>
 			</Separator>
+
+			<DockPanel>
+				<Label DockPanel.Dock="Top" FontSize="32" Content="Choose a library" HorizontalAlignment="Center"/>
+				<userControls:LibrariesControl LibrariesSource="{Binding Libraries}"/>
+			</DockPanel>
+
 		</DockPanel>
+
 	</Grid>
-</Page>
+</ContentControl>

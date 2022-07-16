@@ -6,7 +6,7 @@ namespace JustEng.Views.Pages
 	/// <summary>
 	/// Логика взаимодействия для TensePage.xaml
 	/// </summary>
-	public partial class TensePage : Page
+	public partial class TensePage : UserControl
 	{
 		public TensePage()
 		{

@@ -1,4 +1,4 @@
-﻿<Page x:Class="JustEng.Views.Pages.FlashcardPage"
+﻿<ContentControl x:Class="JustEng.Views.Pages.FlashcardPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="Lucida Sans Unicode"
+        FontFamily="Segoe UI"
         d:DesignHeight="720" d:DesignWidth="1200"
         DataContext="{Binding Path=FlashcardPageModel, Source={StaticResource Locator}}">
 	<Grid>
@@ -89,4 +89,4 @@
 			<userControls:FlashcardControl FlashcardSource="{Binding CurrentFlashcard}"/>
 		</DockPanel>
 	</Grid>
-</Page>
+</ContentControl>
