@@ -6,80 +6,41 @@ using JustEng.Views.Pages;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
+using JustEng.Services.Navigation;
 
 namespace JustEng.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase
 	{
-		private ViewModelBase _MainPage;
-		private ViewModelBase _TensePage;
-		private ViewModelBase _FlashcardPage;
-		private ViewModelBase _LibraryPage;
-
-
 		#region Properties
 
-		private ViewModelBase _currentViewModel;
-		public ViewModelBase CurrentViewModel { get => _currentViewModel; set => Set(ref _currentViewModel, value); }
-
+		public ViewModelBase CurrentViewModel => _navStore.CurrentViewModel;
 
 		#endregion
 
-		#region Command defenitions
+		public ICommand OpenLibraryPageCommand { get; }
+		public ICommand OpenTensePageCommand { get; }
+		public ICommand OpenHomePageCommand { get; }
 
-		private ICommand _AnyCommand;
-		public ICommand AnyCommand => _AnyCommand
-			??= new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
-		private bool CanAnyCommandExecute(object p) => true;
-		private void OnAnyCommandExecuted(object p)
+		private readonly NavigationStore _navStore;
+
+		public MainWindowViewModel(NavigationStore navigationStore, 
+			NavigationService<LibraryPageViewModel> libraryNav, 
+			NavigationService<TensePageViewModel> tenseNav,
+			NavigationService<HomePageViewModel> homeNav)
 		{
-			// Command logic
-		}
-		
-		private ICommand _OpenMainPageCommand;
-		public ICommand OpenMainPageCommand => _OpenMainPageCommand
-			  ??= new RelayCommand(OnOpenMainPageCommandExecuted, CanOpenMainPageCommandExecute);
+			_navStore = navigationStore;
 
-		private bool CanOpenMainPageCommandExecute(object p) => true;
-		private void OnOpenMainPageCommandExecuted(object p)
-		{
-			CurrentViewModel = _MainPage ??= App.Services.GetRequiredService<MainWindowViewModel>();
-		}
+			OpenLibraryPageCommand = new NavigateCommand(libraryNav);
+			OpenTensePageCommand = new NavigateCommand(tenseNav);
+			OpenHomePageCommand = new NavigateCommand(homeNav);
 
-		private ICommand _OpenTensePageCommand;
-		public ICommand OpenTensePageCommand => _OpenTensePageCommand 
-			??= new RelayCommand(OnOpenTensePageCommandExecuted, CanOpenTensePageCommandExecute);
-
-		private bool CanOpenTensePageCommandExecute(object p) => true;
-		private void OnOpenTensePageCommandExecuted(object p)
-		{
-			CurrentViewModel = _TensePage ??= App.Services.GetRequiredService<TensePageViewModel>();
-		}
-		private ICommand _OpenFlashcardPageCommand;
-		public ICommand OpenFlashcardPageCommand => _OpenFlashcardPageCommand
-			  ??= new RelayCommand(OnOpenFlashcardPageCommandExecuted, CanOpenFlashcardPageCommandExecute);
-
-		private bool CanOpenFlashcardPageCommandExecute(object p) => true;
-		private void OnOpenFlashcardPageCommandExecuted(object p)
-		{
-			CurrentViewModel = _FlashcardPage ??= App.Services.GetRequiredService<FlashcardPageViewModel>();
+			_navStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 		}
 
-		private ICommand _OpenLibraryPageCommand;
-		public ICommand OpenLibraryPageCommand => _OpenLibraryPageCommand
-			??= new RelayCommand(OnOpenLibraryPageCommandExecuted, CanOpenLibraryPageCommandExecute);
-
-		private bool CanOpenLibraryPageCommandExecute(object p) => true;
-		private void OnOpenLibraryPageCommandExecuted(object p)
+		private void OnCurrentViewModelChanged()
 		{
-			CurrentViewModel = _LibraryPage ??= App.Services.GetRequiredService<LibraryPageViewModel>();
-		}
-		#endregion
-
-
-		public MainWindowViewModel()
-		{
-			CurrentViewModel = this;
+			OnPropertyChanged(nameof(CurrentViewModel));
 		}
 	}
 }

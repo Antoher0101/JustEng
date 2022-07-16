@@ -1,5 +1,6 @@
 ﻿using JustEng.Data;
 using JustEng.Services;
+using JustEng.Services.Navigation;
 using JustEng.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -16,18 +17,6 @@ namespace JustEng
 	/// </summary>
 	public partial class App
 	{
-		public static Window ActiveWindow => Application.Current.Windows
-		   .OfType<Window>()
-		   .FirstOrDefault(w => w.IsActive);
-
-		public static Window FocusedWindow => Application.Current.Windows
-		   .OfType<Window>()
-		   .FirstOrDefault(w => w.IsFocused);
-
-		public static Window CurrentWindow => FocusedWindow ?? ActiveWindow;
-
-		public static bool IsDesignTime { get; private set; } = true;
-
 		private static IHost __Host;
 
 		public static IHost Host => __Host
@@ -46,22 +35,24 @@ namespace JustEng
 
 		protected override async void OnStartup(StartupEventArgs e)
 		{
-			IsDesignTime = false;
-
 			var host = Host;
 
 			using (var scope = Services.CreateScope())
 				scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().Wait();
 
-			base.OnStartup(e);
+			NavigationStore navStore = Services.GetRequiredService<NavigationStore>();
+			navStore.CurrentViewModel = Services.GetRequiredService<HomePageViewModel>();
+
 			await host.StartAsync();
+			base.OnStartup(e);
 		}
 
 		protected override async void OnExit(ExitEventArgs e)
 		{
-			using var host = Host;
+			using (var host = Host)
+				await host.StopAsync();
+
 			base.OnExit(e);
-			await host.StopAsync();
 		}
 	}
 }
