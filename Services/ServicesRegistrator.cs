@@ -1,4 +1,5 @@
 ﻿using JustEng.Services.Navigation;
+using JustEng.Services.Stores;
 using JustEng.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ namespace JustEng.Services
 	{
 		public static IServiceCollection AddServices(this IServiceCollection services) => services
 		   .AddNavigations()
+		   .AddSingleton<LibraryStore>()
 		;
 	}
 }

@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Windows.Input;
 using JustEng.Infrastructure;
+using JustEng.Services.Stores;
 
 // todo: Библиотека карточек
 // todo: При переключении карточек показывается всегда Основная сторона
@@ -17,6 +18,9 @@ namespace JustEng.ViewModels
 {
 	public partial class FlashcardPageViewModel : ViewModelBase
 	{
+		private readonly LibraryStore _libStore;
+		public Library CurrentLibrary => _libStore.CurrentLibrary;
+
 		private IRepository<Flashcard> _flashcardRepository { get; set; }
 
 		#region Notifable properties
@@ -61,20 +65,12 @@ namespace JustEng.ViewModels
 		#region Other Events
 		private void OnCurrentFlashcardNumberChanged(in int value)
 		{
-			if(value < 0 || value > TotalFlashcards) throw new ArgumentOutOfRangeException(nameof(CurrentFlashcardNumber) + "value is out of the range.");
+			if(value < 0 || value > TotalFlashcards) throw new ArgumentOutOfRangeException(nameof(CurrentFlashcardNumber) + " value is out of the range.");
 			CurrentFlashcard = _Flashcards[value-1];
 		} 
 		#endregion
 
 		#region commands
-
-
-		private ICommand _AnyCommand;
-		public ICommand AnyCommand => _AnyCommand
-			  ??= new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
-
-		private bool CanAnyCommandExecute(object p) => true;
-		private void OnAnyCommandExecuted(object p) { }
 
 		#region Command NextFlashcardCommand - Следующая карточка
 
@@ -148,12 +144,22 @@ namespace JustEng.ViewModels
 
 		#endregion
 
-		public FlashcardPageViewModel(/*IRepository<Flashcard> flashcardRepository*/)
+		public FlashcardPageViewModel(IRepository<Flashcard> flashcardRepository, LibraryStore libStore)
 		{
-			//_flashcardRepository = flashcardRepository;
-			//Flashcards = _flashcardRepository.Items.ToArray();
-			//TotalFlashcards = Flashcards.Length;
-			//CurrentFlashcardNumber = 1;
+			_libStore = libStore;
+
+			_flashcardRepository = flashcardRepository;
+			Flashcards = _flashcardRepository.Items.Where(s=> s.Library.Id == CurrentLibrary.Id).ToArray();
+			TotalFlashcards = Flashcards.Length;
+			if(TotalFlashcards > 0)
+				CurrentFlashcardNumber = 1;
+
+			_libStore.CurrentViewModelChanged += OnCurrentLibraryChanged;
+		}
+
+		private void OnCurrentLibraryChanged()
+		{
+			Console.WriteLine();
 		}
 	}
 }

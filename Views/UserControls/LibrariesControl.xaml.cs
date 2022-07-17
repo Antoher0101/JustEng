@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JustEng.JustEngDAL.Entities;
+using Microsoft.Extensions.Options;
 
 namespace JustEng.Views.UserControls
 {
@@ -41,6 +42,20 @@ namespace JustEng.Views.UserControls
 		//[Category("")]
 		[Description("Массив типа Library")]
 		public Library[] LibrariesSource { get => (Library[])GetValue(LibrariesSourceProperty); set => SetValue(LibrariesSourceProperty, value); }
+
+		#endregion
+
+		#region OnItemClick : ICommand - Обработчик события нажатия на библиотеку
+
+		public static readonly DependencyProperty OnItemClickProperty =
+			DependencyProperty.Register(
+				nameof(OnItemClick),
+				typeof(ICommand),
+				typeof(LibrariesControl),
+				new PropertyMetadata(default(ICommand)));
+
+		[Description("$summary$")]
+		public ICommand OnItemClick { get => (ICommand)GetValue(OnItemClickProperty); set => SetValue(OnItemClickProperty, value); }
 
 		#endregion
 	}

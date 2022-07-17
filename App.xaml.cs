@@ -1,6 +1,6 @@
 ﻿using JustEng.Data;
 using JustEng.Services;
-using JustEng.Services.Navigation;
+using JustEng.Services.Stores;
 using JustEng.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Windows;
+using JustEng.Services.Navigation;
 
 namespace JustEng
 {
@@ -40,8 +41,8 @@ namespace JustEng
 			using (var scope = Services.CreateScope())
 				scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().Wait();
 
-			NavigationStore navStore = Services.GetRequiredService<NavigationStore>();
-			navStore.CurrentViewModel = Services.GetRequiredService<HomePageViewModel>();
+			INavigationService initNav = Services.GetRequiredService<INavigationService>();
+			initNav.Navigate();
 
 			await host.StartAsync();
 			base.OnStartup(e);

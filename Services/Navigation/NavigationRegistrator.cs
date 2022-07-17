@@ -12,9 +12,10 @@ namespace JustEng.Services.Navigation
 	{
 		public static IServiceCollection AddNavigations(this IServiceCollection services) => services
 		   .AddSingleton<NavigationStore>()
-		   .AddTransient<INavigationService, NavigationService<MainWindowViewModel>>()
+		   .AddTransient<INavigationService, NavigationService<LibraryPageViewModel>>()
 		   .AddTransient<NavigationService<LibraryPageViewModel>>()
 		   .AddTransient<NavigationService<TensePageViewModel>>()
+		   .AddTransient<NavigationService<FlashcardPageViewModel>>()
 		   .AddTransient<NavigationService<HomePageViewModel>>()
 		;
 	}

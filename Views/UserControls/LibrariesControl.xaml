@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JustEng.Views.UserControls"
              xmlns:entities="clr-namespace:JustEng.JustEngDAL.Entities"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="LControl">
@@ -15,7 +16,12 @@
 
 	<Grid>
 
-		<ListBox ItemsSource="{Binding LibrariesSource, ElementName=LControl}" Style="{DynamicResource MaterialDesignModifiedListBox}" SelectedIndex="0">
+		<ListBox x:Name="LibBox" ItemsSource="{Binding LibrariesSource, ElementName=LControl}" Style="{DynamicResource MaterialDesignModifiedListBox}">
+			<b:Interaction.Triggers>
+				<b:EventTrigger EventName="SelectionChanged">
+					<b:InvokeCommandAction Command="{Binding ElementName=LControl, Path=OnItemClick}" CommandParameter="{Binding Path=SelectedIndex, ElementName=LibBox}"/>
+				</b:EventTrigger>
+			</b:Interaction.Triggers>
 			<ListBox.ItemTemplate>
 				<DataTemplate DataType="entities:Library">
 					<StackPanel>
@@ -27,7 +33,6 @@
 					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
-
 		</ListBox>
 	</Grid>
 </UserControl>
