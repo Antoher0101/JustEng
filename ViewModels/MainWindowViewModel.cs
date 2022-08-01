@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using JustEng.Services.Navigation;
+using JustEng.Services.Stores;
 
 namespace JustEng.ViewModels
 {

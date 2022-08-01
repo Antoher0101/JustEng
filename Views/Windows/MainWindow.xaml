@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:viewmodels="clr-namespace:JustEng.ViewModels"
 		xmlns:pages="clr-namespace:JustEng.Views.Pages"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		Title="MainWindow" Height="770" Width="1200"
 		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -28,9 +29,36 @@
 			  DockPanel.Dock="Top"
 			  BorderBrush="{StaticResource MaterialDesignDarkSeparatorBackground}"
 			  BorderThickness="0,0,0,3">
-			<MenuItem Header="Home" Command="{Binding OpenHomePageCommand}"/>
-			<MenuItem Header="Flashcards" Command="{Binding OpenLibraryPageCommand}"/>
-			<MenuItem Header="Tense" Command="{Binding OpenTensePageCommand}"/>
+			<MenuItem Command="{Binding OpenHomePageCommand}">
+				<MenuItem.HeaderTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<materialDesign:PackIcon Kind="Home" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="25"/>
+							<TextBlock Text="Home" Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+						</StackPanel>
+					</DataTemplate>
+				</MenuItem.HeaderTemplate>
+			</MenuItem>
+			<MenuItem Command="{Binding OpenLibraryPageCommand}">
+				<MenuItem.HeaderTemplate>
+					<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<materialDesign:PackIcon Kind="Cards" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="25"/>
+							<TextBlock Text="Flashcards"  Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					</StackPanel>
+				</DataTemplate>
+			</MenuItem.HeaderTemplate>
+			</MenuItem>
+			<MenuItem Command="{Binding OpenTensePageCommand}">
+				<MenuItem.HeaderTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<materialDesign:PackIcon Kind="Clock" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25"/>
+							<TextBlock Text="Tense"  Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+						</StackPanel>
+					</DataTemplate>
+				</MenuItem.HeaderTemplate>
+			</MenuItem>
 		</Menu>
 		<!--<Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>-->
 		<ContentControl Content="{Binding CurrentViewModel}">

@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="JustEng.Views.UserControls.LibraryEditControl" x:Name="SelfControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:entities="clr-namespace:JustEng.JustEngDAL.Entities"
+      mc:Ignorable="d"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="Segoe UI"
+        d:DesignHeight="720" d:DesignWidth="1200">
+
+	<!--Todo: Удаление несохраненных карточек-->
+
+<Grid Margin="16">
+		<ListBox Style="{DynamicResource MaterialDesignModifiedListBox}" ItemsSource="{Binding Path=FlashcardsSource, ElementName=SelfControl}" 
+							         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
+							         ScrollViewer.CanContentScroll="False" 
+							         VirtualizingStackPanel.IsVirtualizing="True" 
+							         VirtualizingStackPanel.VirtualizationMode="Recycling">
+			<ListBox.Template>
+				<ControlTemplate>
+					<ItemsPresenter />
+				</ControlTemplate>
+			</ListBox.Template>
+			<ListBox.ItemTemplate>
+				<DataTemplate DataType="entities:Flashcard">
+					<materialDesign:DialogHost
+						Placement="Mouse"
+						VerticalAlignment="Center"
+						CloseOnClickAway="True"
+						OverlayBackground="Transparent"
+						DialogTheme="Inherit" IsManipulationEnabled="True" DialogMargin="0 0 700 0">
+						<materialDesign:DialogHost.DialogContent>
+							<Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" CornerRadius="5">
+								<StackPanel
+								Margin="16">
+									<TextBlock Text="Are you sure you want to delete this flashcard?" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,16" FontSize="16"/>
+									<StackPanel
+									Orientation="Horizontal"
+									HorizontalAlignment="Right">
+										<Button
+										Style="{StaticResource MaterialDesignFlatButton}"
+										IsCancel="True"
+										Margin="8,8,8,0"
+										Content="Cancel"
+										Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+										</Button>
+										<Button
+										Style="{DynamicResource MaterialDesignPaperButton}"
+										Foreground="{DynamicResource PrimaryHueMidBrush}"
+										IsDefault="True"
+										Margin="8,8,8,0"
+										Content="Delete"
+										Command="{Binding DeleteCommand, ElementName=SelfControl}"
+										CommandParameter="{Binding RelativeSource=
+                                   {RelativeSource
+                                    Mode=FindAncestor,
+                                    AncestorType={x:Type ListBoxItem}}}">
+										</Button>
+									</StackPanel>
+								</StackPanel>
+							</Border>
+						</materialDesign:DialogHost.DialogContent>
+						<Grid Margin="8" MinHeight="50">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="8*"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="12*"/>
+								<ColumnDefinition Width="2*"/>
+							</Grid.ColumnDefinitions>
+							<TextBox IsReadOnly="{Binding EditingMode, ElementName=SelfControl}" Grid.Column="0" FontSize="18" Text="{Binding Face}" TextWrapping="Wrap" 
+							         VerticalAlignment="Center" HorizontalAlignment="Stretch"
+							         BorderThickness="0"
+							         materialDesign:HintAssist.Hint="Enter term"
+							         CaretBrush="#FF689E00" SelectionBrush="#FFCFFF70"
+							         materialDesign:TextFieldAssist.UnderlineBrush="#FF689E00">
+								<TextBox.Style>
+									<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+										<Style.Triggers>
+											<Trigger Property="IsFocused" Value="True">
+												<Setter Property="materialDesign:HintAssist.HelperText" Value="TERM"/>
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</TextBox.Style>
+							</TextBox>
+							<Separator Grid.Column="1" Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" Width="1" 
+							           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="12,0">
+								<Separator.Effect>
+									<DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="{StaticResource MaterialDesignShadow}"/>
+								</Separator.Effect>
+							</Separator>
+							<TextBox IsReadOnly="{Binding EditingMode, ElementName=SelfControl}" Grid.Column="2" FontSize="18" Text="{Binding Back}" TextWrapping="Wrap" 
+							         VerticalAlignment="Center" HorizontalAlignment="Stretch"
+							         BorderThickness="0"
+							         materialDesign:HintAssist.Hint="Enter definition"
+							         CaretBrush="#FF689E00" SelectionBrush="#FFCFFF70"
+							         materialDesign:TextFieldAssist.UnderlineBrush="#FF689E00">
+								<TextBox.Style>
+									<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+										<Style.Triggers>
+											<Trigger Property="IsFocused" Value="True">
+												<Setter Property="materialDesign:HintAssist.HelperText" Value="DEFINITION"/>
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</TextBox.Style>
+							</TextBox>
+							<Button Grid.Column="3" 
+							              VerticalAlignment="Top" HorizontalAlignment="Right"
+							              Style="{StaticResource MaterialDesignIconForegroundButton}"
+							              Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+								<Button.Content>
+									<materialDesign:PackIcon Kind="Remove" Width="25" Height="25"/>
+								</Button.Content>
+							</Button>
+					</Grid>
+						</materialDesign:DialogHost>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</UserControl>

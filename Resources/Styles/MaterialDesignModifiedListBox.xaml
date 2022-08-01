@@ -8,7 +8,7 @@
 		<Setter Property="Background" Value="#FF303030"/>
 		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-		<Setter Property="Padding" Value="14,14,14,5"/>
+		<Setter Property="Padding" Value="14"/>
 		<Setter Property="SnapsToDevicePixels" Value="True"/>
 		<Setter Property="FontSize" Value="24"/>
 		<Setter Property="VerticalContentAlignment" Value="Bottom"/>
@@ -20,7 +20,7 @@
 					<Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            Margin="14,14,14,5"
+                            Margin="14,10,14,20"
                             ClipToBounds="{TemplateBinding ClipToBounds}"
                             CornerRadius="5">
 						<Border.Effect>
@@ -89,7 +89,8 @@
                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Padding="{TemplateBinding Padding}"
-                                        RecognizesAccessKey="False"/>
+                                        RecognizesAccessKey="False" 
+                                        wpf:RippleAssist.IsDisabled="True"/> <!-- Turn off the ripple -->
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
@@ -111,7 +112,6 @@
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="0"/>
-		<!--<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>-->
 		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignModifiedListBoxItem}" />
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>

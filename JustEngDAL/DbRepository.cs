@@ -80,7 +80,17 @@ namespace JustEng.JustEngDAL
 			return item;
 		}
 
-	}public class LibrariesRepository : DbRepository<Library>
+		public void SaveChanges()
+		{
+			_db.SaveChanges();
+		}
+		public async void SaveChangesAsync()
+		{
+			await _db.SaveChangesAsync();
+		}
+
+	}
+	public class LibrariesRepository : DbRepository<Library>
 	{
 		public override IQueryable<Library> Items => base.Items.Include(item => item.Flashcards);
 		public LibrariesRepository(LibraryDBContext db) : base(db) { }

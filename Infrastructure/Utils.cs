@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace JustEng.Infrastructure
 {
 	public static class Utils
 	{
-		public static void Shuffle<T>(this Random rng, T[] array)
+		public static void Shuffle<T>(this List<T> list, Random rng)
 		{
-			int n = array.Length;
+			int n = list.Count;
 			while (n > 1)
 			{
-				int k = rng.Next(n--);
-				(array[n], array[k]) = (array[k], array[n]);
+				n--;
+				int k = rng.Next(n + 1);
+				(list[k], list[n]) = (list[n], list[k]);
 			}
 		}
 	}

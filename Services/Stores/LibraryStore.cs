@@ -14,14 +14,14 @@ namespace JustEng.Services.Stores
 			set
 			{
 				_CurrentLibrary = value;
-				OnCurrentViewModelChanged();
+				OnCurrentLibraryChanged();
 			}
 		}
 
-		public event Action CurrentViewModelChanged;
-		private void OnCurrentViewModelChanged()
+		public event Action CurrentLibraryChanged;
+		private void OnCurrentLibraryChanged()
 		{
-			CurrentViewModelChanged?.Invoke();
+			CurrentLibraryChanged?.Invoke();
 		}
 	}
 }
