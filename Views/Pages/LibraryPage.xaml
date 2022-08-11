@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:JustEng.Views.Pages"
       xmlns:userControls="clr-namespace:JustEng.Views.UserControls"
       xmlns:entities="clr-namespace:JustEng.JustEngDAL.Entities"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -18,95 +18,96 @@
       d:DesignHeight="720" d:DesignWidth="1200"
       DataContext="{Binding LibraryModel, Source={StaticResource Locator}}">
 	<Grid>
-		<DockPanel Margin="16,16,16,16" Grid.RowSpan="2">
-			<DockPanel.Resources>
-				<Style TargetType="Button" BasedOn="{StaticResource  MaterialDesignOutlinedSecondaryDarkButton}">
-					<Setter Property="HorizontalContentAlignment" Value="Left"/>
-					<Setter Property="VerticalAlignment" Value="Stretch"/>
-					<Setter Property="Margin" Value="0,0,0,20"/>
-					<Setter Property="MinHeight" Value="50"/>
-					<Setter Property="MinWidth" Value="50"/>
-					<Setter Property="FontSize" Value="16"/>
-					<Setter Property="FontWeight" Value="Regular"/>
-				</Style>
-			</DockPanel.Resources>
+		<md:DialogHost IsOpen="{Binding ShowAddLibraryPopup}" CloseOnClickAway="True">
+			<DockPanel Margin="16,16,16,16" Grid.RowSpan="2">
+				<DockPanel.Resources>
+					<Style TargetType="Button" BasedOn="{StaticResource  MaterialDesignOutlinedSecondaryDarkButton}">
+						<Setter Property="HorizontalContentAlignment" Value="Left"/>
+						<Setter Property="VerticalAlignment" Value="Stretch"/>
+						<Setter Property="Margin" Value="0,0,0,20"/>
+						<Setter Property="MinHeight" Value="50"/>
+						<Setter Property="MinWidth" Value="50"/>
+						<Setter Property="FontSize" Value="16"/>
+						<Setter Property="FontWeight" Value="Regular"/>
+					</Style>
+				</DockPanel.Resources>
 
-			<!--<DockPanel MinWidth="205" MaxWidth="300" LastChildFill="False" Margin="0,20,0,0" DockPanel.Dock="Right">
-				<Button DockPanel.Dock="Top" Command="{Binding ShuffleFlashcardsCommand}">
-					<Button.ContentTemplate>
-						<DataTemplate>
+				<DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
+					<Button Margin="0,0,10,0" MinWidth="205" HorizontalAlignment="Left">
+						<Button.Content>
 							<StackPanel Orientation="Horizontal">
-								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="Random" Margin="0,0,8,0" Width="25"/>
-								<TextBlock Text="Suffle"/>
-							</StackPanel>
-						</DataTemplate>
-					</Button.ContentTemplate>
-				</Button>
-				<Button DockPanel.Dock="Top" Margin="0,0,0,20" Command="{Binding SwitchFlashcardSidesCommand}">
-					<Button.ContentTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal">
-								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="Refresh" Margin="0,0,8,0" Width="25"/>
-								<TextBlock Text="Switch main side"/>
-							</StackPanel>
-						</DataTemplate>
-					</Button.ContentTemplate>
-				</Button>
-				<Button DockPanel.Dock="Top" Margin="0,0,0,20" Command="{Binding DisableShowingCurrentFlashcard}">
-					<Button.ContentTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal">
-								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="EyeSlash" Margin="0,0,8,0" Width="25"/>
-								<TextBlock Text="Don't show it again"/>
-							</StackPanel>
-						</DataTemplate>
-					</Button.ContentTemplate>
-				</Button>
-
-				<Button DockPanel.Dock="Bottom" Margin="0,0,0,0" Command="NavigationCommands.GoToPage" CommandParameter="/FlashcardPage.xaml">
-					<Button.ContentTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal">
-								<fa:FontAwesome VerticalAlignment="Center" HorizontalAlignment="Center" Icon="FolderOpen" Margin="0,0,8,0" Width="25"/>
-								<TextBlock Text="Open library"/>
-							</StackPanel>
-						</DataTemplate>
-					</Button.ContentTemplate>
-				</Button>
-			</DockPanel>-->
-			<DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
-				<Button Margin="0,0,10,0" MinWidth="205" HorizontalAlignment="Left">
-					<Button.Content>
-						<StackPanel Orientation="Horizontal">
-							<materialDesign:PackIcon Kind="FolderPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
-							<TextBlock Text="Add new repository"
+								<md:PackIcon Kind="FolderPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
+								<TextBlock Text="Add new library"
 							           Margin="8,0,0,0"/>
-						</StackPanel>
-					</Button.Content>
-				</Button>
-				<Button Margin="10,0,0,0" Foreground="#de3627" BorderBrush="#FFDE3627" MinWidth="205" HorizontalAlignment="Right">
-					<Button.Content>
-						<StackPanel Orientation="Horizontal">
-							<materialDesign:PackIcon Kind="FolderPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
-							<TextBlock Text="Delete repository"
-							           Margin="8,0,0,0"/>
-						</StackPanel>
-					</Button.Content>
-				</Button>
-			</DockPanel>
+							</StackPanel>
+						</Button.Content>
+					</Button>
 
-			<Separator DockPanel.Dock="Bottom" Background="#1F000000" Height="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
+					<Button Margin="10,0,0,0" Foreground="#de3627" BorderBrush="#FFDE3627" MinWidth="205" HorizontalAlignment="Right" DockPanel.Dock="Right">
+						<Button.Content>
+							<StackPanel Orientation="Horizontal">
+								<md:PackIcon Kind="FolderPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
+								<TextBlock Text="Delete library"
+							           Margin="8,0,0,0"/>
+							</StackPanel>
+						</Button.Content>
+					</Button>
+					<!--Add button-->
+					<Button  Margin="0,0,0,0" Command="{Binding AddNewLibraryCommand}" 
+				         Style="{StaticResource MaterialDesignIconButton}"
+				         Foreground="{DynamicResource SecondaryHueDarkBrush}"
+				         md:RippleAssist.Feedback="{DynamicResource SecondaryHueDarkBrush}"
+				         Width="50" Height="50" HorizontalAlignment="Center">
+						<md:PackIcon Kind="AddThick" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
+					</Button>
+				</DockPanel>
+
+				<Separator DockPanel.Dock="Bottom" Background="#1F000000" Height="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" 
 			           Margin="0,20,0,16">
-				<Separator.Effect>
-					<DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="{StaticResource MaterialDesignShadow}"/>
-				</Separator.Effect>
-			</Separator>
-			<DockPanel>
-				<Label DockPanel.Dock="Top" FontSize="32" Content="Choose a library" HorizontalAlignment="Center"/>
-				<userControls:LibrariesControl LibrariesSource="{Binding Libraries}" OnItemClick="{Binding OpenLibraryCommand}"/>
+					<Separator.Effect>
+						<DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="{StaticResource MaterialDesignShadow}"/>
+					</Separator.Effect>
+				</Separator>
+				<DockPanel>
+					<Label DockPanel.Dock="Top" FontSize="32" Content="Choose a library" HorizontalAlignment="Center"/>
+					<userControls:LibrariesControl LibrariesSource="{Binding Libraries}" OnItemClick="{Binding OpenLibraryCommand}"/>
+				</DockPanel>
+
 			</DockPanel>
 
-		</DockPanel>
+			<md:DialogHost.DialogContent>
+				<Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" CornerRadius="5" MinWidth="300">
+						<StackPanel
+							Margin="16">
+							<TextBlock Text="Add a new library." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,8" FontSize="16"/>
+							<TextBox Margin="0 8 0 8" FontSize="16"
+							         md:HintAssist.Hint="Name"
+							         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+							         HorizontalAlignment="Stretch" Text="{Binding NewLibraryName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+							<StackPanel
+								Orientation="Horizontal"
+								HorizontalAlignment="Right">
+								<Button
+									Style="{DynamicResource MaterialDesignFlatButton}"
+									IsCancel="True"
+									Margin="8,8,8,0"
+									Content="Cancel"
+									Command="{Binding CloseAddLibraryPopupCommand}" HorizontalContentAlignment="Center">
+								</Button>
+								<Button
+									Style="{DynamicResource MaterialDesignPaperButton}"
+									Foreground="{DynamicResource PrimaryHueMidBrush}"
+									IsDefault="True"
+									Margin="8,8,8,0"
+									Content="Save"
+									Command="{Binding SaveNewLibraryCommand}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+								</Button>
+							</StackPanel>
+						</StackPanel>
+					</Border>
+			</md:DialogHost.DialogContent>
+
+		</md:DialogHost>
 
 	</Grid>
 </ContentControl>
