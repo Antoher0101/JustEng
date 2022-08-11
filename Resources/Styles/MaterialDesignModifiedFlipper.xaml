@@ -16,7 +16,7 @@
 							<VisualStateGroup x:Name="FlipStates">
 								<VisualStateGroup.Transitions>
 									<VisualTransition From="Unflipped" To="Flipped">
-										<Storyboard FillBehavior="HoldEnd">
+										<Storyboard FillBehavior="HoldEnd" SpeedRatio="1.5">
 											<DoubleAnimationUsingKeyFrames Duration="0:0:0.4" Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Plane3D">
 												<EasingDoubleKeyFrame Value="0" KeyTime="0:0:0.0" EasingFunction="{StaticResource FlipEase}" />
 												<EasingDoubleKeyFrame Value="-90" KeyTime="0:0:0.2" EasingFunction="{StaticResource FlipEase}" />
@@ -32,7 +32,7 @@
 										</Storyboard>
 									</VisualTransition>
 									<VisualTransition From="Flipped" To="Unflipped">
-										<Storyboard FillBehavior="HoldEnd">
+										<Storyboard FillBehavior="HoldEnd" SpeedRatio="1.5">
 											<DoubleAnimationUsingKeyFrames Duration="0:0:0.4" Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Plane3D">
 												<EasingDoubleKeyFrame Value="0" KeyTime="0:0:0.0" EasingFunction="{StaticResource FlipEase}" />
 												<EasingDoubleKeyFrame Value="90" KeyTime="0:0:0.2" EasingFunction="{StaticResource FlipEase}" />

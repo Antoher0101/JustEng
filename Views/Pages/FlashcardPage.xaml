@@ -33,7 +33,7 @@
 					<md:DialogHost  IsOpen="{Binding ShowApplyPopup}" CloseOnClickAway="True">
 						<!-- #region  ApplyChangesPopup -->
 						<md:DialogHost.DialogContent>
-							<Border BorderThickness="1" BorderBrush="{StaticResource PrimaryHueMidBrush}" CornerRadius="5">
+							<Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" CornerRadius="5">
 								<StackPanel
 								Margin="16">
 									<TextBlock Text="Do you want to save changes?" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,16" FontSize="16"/>
@@ -142,7 +142,9 @@
 								</Separator>
 								<ScrollViewer>
 									<StackPanel>
-										<userControls:LibraryEditControl DeleteCommand="{Binding DeleteFlashcardCommand}" FlashcardsSource="{Binding Flashcards}" EditingMode="True"/>
+										<userControls:LibraryEditControl DeleteCommand="{Binding DeleteFlashcardCommand}" 
+										                                 FlashcardsSource="{Binding Flashcards}" 
+										                                 ApplyNewCommand="{Binding ChangeFlashcardCommand}"/>
 										<Label Content="Unsaved flashcards" FontSize="24" HorizontalAlignment="Center" 
 										       Visibility="{Binding NewFlashcardsStorage.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
 										<userControls:LibraryEditControl DeleteCommand="{Binding DeleteNewFlashcardCommand}" FlashcardsSource="{Binding NewFlashcardsStorage}"/>
@@ -187,7 +189,7 @@
 							</DataTemplate>
 						</Button.ContentTemplate>
 					</Button>
-					<Button DockPanel.Dock="Top" Margin="0,0,0,20" Command="{Binding DisableShowingCurrentFlashcard}">
+					<Button DockPanel.Dock="Top" Margin="0,0,0,20" Command="{Binding DisableShowingCurrentFlashcardCommand}">
 						<Button.ContentTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
@@ -237,7 +239,8 @@
 					</Separator.Effect>
 				</Separator>
 				<DockPanel Margin="16">
-					<md:Flipper x:Name="Flipper" IsFlippedChanged="Flipper_IsFlippedChanged" Style="{StaticResource FlipperStyle}">
+					<md:Flipper Style="{StaticResource FlipperStyle}"
+					           IsFlipped="{Binding IsFlashcardFlipped, Mode=TwoWay, NotifyOnSourceUpdated=True}">
 						<md:Flipper.FrontContent>
 							<Border Margin="20, 10">
 								<Border.Effect>
@@ -250,7 +253,7 @@
 			           TextWrapping="Wrap" 
 			           Padding="20" 
 			           HorizontalAlignment="Center" VerticalAlignment="Center"
-			           Text="{Binding CurrentFlashcard.Face, FallbackValue=None, NotifyOnTargetUpdated=True}"  TargetUpdated="OnTextUpdated"/>
+			           Text="{Binding CurrentFlashcard.Face, FallbackValue=None, NotifyOnTargetUpdated=True}"/>
 									<Grid.InputBindings>
 										<MouseBinding MouseAction="LeftClick" Command="{x:Static md:Flipper.FlipCommand}"/>
 									</Grid.InputBindings>
@@ -269,7 +272,7 @@
 						           TextWrapping="Wrap" 
 						           Padding="20" 
 						           HorizontalAlignment="Center" VerticalAlignment="Center"
-						           Text="{Binding CurrentFlashcard.Back, FallbackValue=None, NotifyOnTargetUpdated=True}"  TargetUpdated="OnTextUpdated"/>
+						           Text="{Binding CurrentFlashcard.Back, FallbackValue=None, NotifyOnTargetUpdated=True}"/>
 									<Grid.InputBindings>
 										<MouseBinding MouseAction="LeftClick" Command="{x:Static md:Flipper.FlipCommand}"/>
 									</Grid.InputBindings>

@@ -182,6 +182,11 @@ namespace JustEng.ViewModels
 			set => Set(ref _Flashcards, value);
 		}
 
+		private List<Flashcard> ChangedFlashcards { get; set; } = new();
+
+		private bool _isFlashcardFlipped;
+		public bool IsFlashcardFlipped { get => _isFlashcardFlipped; set => Set(ref _isFlashcardFlipped, value); }
+
 		/// <summary>
 		/// Array contains recently added flashcards that haven't yet been saved in the database
 		/// </summary>
@@ -266,6 +271,7 @@ namespace JustEng.ViewModels
 		private void OnNextFlashcardCommandExecuted(object p)
 		{
 			CurrentFlashcardNumber++;
+			IsFlashcardFlipped = false;
 		}
 
 		#endregion
@@ -291,6 +297,7 @@ namespace JustEng.ViewModels
 		private void OnPrevFlashcardCommandExecuted(object p)
 		{
 			CurrentFlashcardNumber--;
+			IsFlashcardFlipped = false;
 		}
 
 		#endregion
@@ -334,9 +341,8 @@ namespace JustEng.ViewModels
 		/// <summary>Логика выполнения - Поменять основную сторону карточек</summary>
 		private void OnSwitchFlashcardSidesCommandExecuted(object p)
 		{
-			if (_switchedSides) _switchedSides = false;
-			else _switchedSides = true;
-
+			_switchedSides = !_switchedSides;
+			IsFlashcardFlipped = _switchedSides;
 		}
 
 		#endregion
@@ -377,18 +383,18 @@ namespace JustEng.ViewModels
 		}
 		#endregion
 
-		#region Command AnyCommand - Удаление карточки из базы данных
+		#region Command DeleteFlashcardCommand - Удаление карточки из базы данных
 
 		private ICommand _DeleteFlashcardCommand;
 
 		public ICommand DeleteFlashcardCommand => _DeleteFlashcardCommand
-			??= new RelayCommand(OnAnyCommandExecuted, CanAnyCommandExecute);
+			??= new RelayCommand(OnDeleteFlashcardCommandExecuted, CanDeleteFlashcardCommandExecute);
 
 		/// <summary>Проверка возможности выполнения - Удаление карточки из базы данных</summary>
-		private bool CanAnyCommandExecute(object p) => true;
+		private bool CanDeleteFlashcardCommandExecute(object p) => true;
 
 		/// <summary>Логика выполнения - Удаление карточки из базы данных</summary>
-		private void OnAnyCommandExecuted(object p)
+		private void OnDeleteFlashcardCommandExecuted(object p)
 		{
 			if (p is not null)
 			{
@@ -420,7 +426,47 @@ namespace JustEng.ViewModels
 		}
 
 		#endregion
-		 
+
+		#region Command ChangeFlashcardCommand - Изменение карточки
+
+		private ICommand _ChangeFlashcardCommand;
+
+		public ICommand ChangeFlashcardCommand => _ChangeFlashcardCommand
+			??= new RelayCommand(OnChangeFlashcardCommandExecuted, CanChangeFlashcardCommandExecute);
+
+		/// <summary>Проверка возможности выполнения - Изменение карточки</summary>
+		private bool CanChangeFlashcardCommandExecute(object p) => true;
+
+		/// <summary>Логика выполнения - Изменение карточки</summary>
+		private void OnChangeFlashcardCommandExecuted(object p)
+		{
+			if (p is not null)
+			{
+				var item = ((ListBoxItem)p).Content as Flashcard;
+				ChangedFlashcards.Add(item);
+			}
+		}
+
+		#endregion
+
+		#region Command DisableShowingCurrentFlashcardCommand - Отключить показ карточки в бд
+
+		private ICommand _DisableShowingCurrentFlashcardCommand;
+
+		public ICommand DisableShowingCurrentFlashcardCommand => _DisableShowingCurrentFlashcardCommand
+			??= new RelayCommand(OnDisableShowingCurrentFlashcardCommandExecuted, CanDisableShowingCurrentFlashcardCommandExecute);
+
+		/// <summary>Проверка возможности выполнения - Отключить показ карточки в бд</summary>
+		private bool CanDisableShowingCurrentFlashcardCommandExecute(object p) => true;
+
+		/// <summary>Логика выполнения - Отключить показ карточки в бд</summary>
+		private void OnDisableShowingCurrentFlashcardCommandExecuted(object p)
+		{
+			
+		}
+
+		#endregion
+
 		#endregion
 
 		public FlashcardPageViewModel(NavigationService<LibraryPageViewModel> libraryPage, IRepository<Flashcard> flashcardRepository, LibraryStore libStore)
@@ -449,18 +495,25 @@ namespace JustEng.ViewModels
 
 		private async void SaveToDatabase()
 		{
+			var lib = _flashcardRepository as DbRepository<Flashcard>;
+			lib.AutoSaveChanges = false;
+			if (ChangedFlashcards.Count > 0)
+			{
+				foreach (Flashcard flashcard in ChangedFlashcards)
+				{
+					UpdateFlashcard(flashcard);
+				}
+			}
 			if (NewFlashcardsStorage.Count > 0)
 			{
-				var lib = _flashcardRepository as DbRepository<Flashcard>;
-				lib.AutoSaveChanges = false;
 				foreach (Flashcard flashcard in NewFlashcardsStorage)
 				{
 					flashcard.Library = CurrentLibrary;
 					await lib.AddAsync(flashcard);
 				}
-				lib.SaveChangesAsync();
-				lib.AutoSaveChanges = true;
 			}
+			lib.SaveChangesAsync();
+			lib.AutoSaveChanges = true;
 			UpdateLibrary();
 		}
 
@@ -474,6 +527,12 @@ namespace JustEng.ViewModels
 			var lib = _flashcardRepository as DbRepository<Flashcard>;
 			await lib.DeleteAsync(id);
 			UpdateLibrary();
+		}
+
+		private async void UpdateFlashcard(Flashcard card)
+		{
+			var lib = _flashcardRepository as DbRepository<Flashcard>;
+			await lib.UpdateAsync(card);
 		}
 	}
 }
