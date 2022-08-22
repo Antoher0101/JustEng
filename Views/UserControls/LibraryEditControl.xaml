@@ -6,6 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:entities="clr-namespace:JustEng.JustEngDAL.Entities"
+      xmlns:infrastructure="clr-namespace:JustEng.Infrastructure"
       mc:Ignorable="d"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,9 +17,11 @@
         FontFamily="Segoe UI"
         d:DesignHeight="720" d:DesignWidth="1200">
 
-	<!--Todo: Удаление несохраненных карточек-->
+	<UserControl.Resources>
+		<infrastructure:InvertVisibility x:Key="InvertVisibility"/>
+	</UserControl.Resources>
 
-<Grid Margin="16">
+	<Grid Margin="16">
 		<ListBox Style="{DynamicResource MaterialDesignModifiedListBox}" ItemsSource="{Binding Path=FlashcardsSource, ElementName=SelfControl}" 
 							         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
 							         ScrollViewer.CanContentScroll="False" 
@@ -73,7 +76,7 @@
 								<ColumnDefinition Width="8*"/>
 								<ColumnDefinition Width="*"/>
 								<ColumnDefinition Width="12*"/>
-								<ColumnDefinition Width="2*"/>
+								<ColumnDefinition Width="3*"/>
 							</Grid.ColumnDefinitions>
 							<TextBox IsReadOnly="{Binding EditingMode, ElementName=SelfControl}" Grid.Column="0" FontSize="18" Text="{Binding Face}" TextWrapping="Wrap" 
 							         VerticalAlignment="Center" HorizontalAlignment="Stretch"
@@ -97,7 +100,7 @@
 									<DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="{StaticResource MaterialDesignShadow}"/>
 								</Separator.Effect>
 							</Separator>
-							<TextBox IsReadOnly="{Binding EditingMode, ElementName=SelfControl}" Grid.Column="2" FontSize="18" Text="{Binding Back}" TextWrapping="Wrap" 
+							<TextBox IsReadOnly="{Binding ElementName=SelfControl, Path=EditingMode}" Grid.Column="2" FontSize="18" Text="{Binding Back}" TextWrapping="Wrap" 
 							         VerticalAlignment="Center" HorizontalAlignment="Stretch"
 							         BorderThickness="0"
 							         materialDesign:HintAssist.Hint="Enter definition"
@@ -113,16 +116,35 @@
 									</Style>
 								</TextBox.Style>
 							</TextBox>
-							<Button Grid.Column="3" 
-							              VerticalAlignment="Top" HorizontalAlignment="Right"
-							              Style="{StaticResource MaterialDesignIconForegroundButton}"
+							<StackPanel Grid.Column="3" Orientation="Horizontal"  VerticalAlignment="Top" HorizontalAlignment="Right">
+								<Button x:Name="EditCardButton" Click="EditCardButton_OnClick"
+									Style="{StaticResource MaterialDesignIconForegroundButton}">
+									<Button.Content>
+										<materialDesign:PackIcon Kind="Edit" Width="25" Height="25"/>
+									</Button.Content>
+								</Button>
+								<Button Visibility="{Binding Path=Visibility, ElementName=EditCardButton, Converter={StaticResource InvertVisibility}}"
+									Style="{StaticResource MaterialDesignIconForegroundButton}"
+									Click="ApplyEditCardButton_OnClick"
+									Tag="{Binding RelativeSource=
+                                   {RelativeSource
+                                    Mode=FindAncestor,
+                                    AncestorType={x:Type ListBoxItem}}}">
+									<Button.Content>
+										<materialDesign:PackIcon Kind="CheckThick" Width="25" Height="25"/>
+									</Button.Content>
+								</Button>
+								<!--Remove the card button-->
+								<Button  
+									Style="{StaticResource MaterialDesignIconForegroundButton}"
 							              Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-								<Button.Content>
-									<materialDesign:PackIcon Kind="Remove" Width="25" Height="25"/>
-								</Button.Content>
-							</Button>
-					</Grid>
-						</materialDesign:DialogHost>
+									<Button.Content>
+										<materialDesign:PackIcon Kind="Remove" Width="25" Height="25"/>
+									</Button.Content>
+								</Button>
+							</StackPanel>
+						</Grid>
+					</materialDesign:DialogHost>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

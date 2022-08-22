@@ -1,14 +1,12 @@
 ﻿<ContentControl x:Class="JustEng.Views.Pages.FlashcardPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:userControls="clr-namespace:JustEng.Views.UserControls"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:entities="clr-namespace:JustEng.JustEngDAL.Entities"
-      xmlns:infrastructure="clr-namespace:JustEng.Infrastructure"
-      mc:Ignorable="d"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:infrastructure="clr-namespace:JustEng.Infrastructure"
+                xmlns:userControls="clr-namespace:JustEng.Views.UserControls"
+                mc:Ignorable="d"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -103,7 +101,7 @@
 										<Setter Property="FontWeight" Value="Regular"/>
 									</Style>
 								</DockPanel.Resources>
-								<Label Margin="0,0,16,0" DockPanel.Dock="Top" FontSize="32" Content="{Binding Path=CurrentLibrary.Name, FallbackValue=Flashcard repository label}"
+								<Label Margin="0,0,16,0" DockPanel.Dock="Top" FontSize="32" Content="{Binding Path=CurrentLibrary.Name, FallbackValue=Flashcard library label}"
 			       HorizontalAlignment="Right"/>
 								<Grid DockPanel.Dock="Bottom" Margin="16">
 									<!-- Close button -->
@@ -167,14 +165,14 @@
 						<Setter Property="FontWeight" Value="Regular"/>
 					</Style>
 				</DockPanel.Resources>
-				<Label DockPanel.Dock="Top" FontSize="32" Content="{Binding Path=CurrentLibrary.Name, FallbackValue=Flashcard repository label}"/>
+				<Label DockPanel.Dock="Top" FontSize="32" Content="{Binding Path=CurrentLibrary.Name, FallbackValue=Flashcard library label}"/>
 				<DockPanel MinWidth="205" MaxWidth="300" LastChildFill="False" Margin="0,20,0,0">
 					<Button DockPanel.Dock="Top" Command="{Binding ShuffleFlashcardsCommand}">
 						<Button.ContentTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
 									<md:PackIcon Kind="ShuffleVariant" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25"/>
-									<TextBlock  Text="Suffle" Margin="8,0,0,0"/>
+									<TextBlock  Text="Shuffle" Margin="8,0,0,0"/>
 								</StackPanel>
 							</DataTemplate>
 						</Button.ContentTemplate>
@@ -212,7 +210,7 @@
 						<Button.Content>
 							<StackPanel Orientation="Horizontal">
 								<md:PackIcon Kind="Cog" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25"/>
-								<TextBlock Text="Edit repository" Margin="8,0,0,0"/>
+								<TextBlock Text="Edit library" Margin="8,0,0,0"/>
 							</StackPanel>
 						</Button.Content>
 					</Button>
@@ -253,7 +251,7 @@
 			           TextWrapping="Wrap" 
 			           Padding="20" 
 			           HorizontalAlignment="Center" VerticalAlignment="Center"
-			           Text="{Binding CurrentFlashcard.Face, FallbackValue=None, NotifyOnTargetUpdated=True}"/>
+			           Text="{Binding CurrentFlashcard.Face, FallbackValue=Empty card, NotifyOnTargetUpdated=True}"/>
 									<Grid.InputBindings>
 										<MouseBinding MouseAction="LeftClick" Command="{x:Static md:Flipper.FlipCommand}"/>
 									</Grid.InputBindings>
@@ -272,7 +270,7 @@
 						           TextWrapping="Wrap" 
 						           Padding="20" 
 						           HorizontalAlignment="Center" VerticalAlignment="Center"
-						           Text="{Binding CurrentFlashcard.Back, FallbackValue=None, NotifyOnTargetUpdated=True}"/>
+						           Text="{Binding CurrentFlashcard.Back, FallbackValue=Empty card, NotifyOnTargetUpdated=True}"/>
 									<Grid.InputBindings>
 										<MouseBinding MouseAction="LeftClick" Command="{x:Static md:Flipper.FlipCommand}"/>
 									</Grid.InputBindings>

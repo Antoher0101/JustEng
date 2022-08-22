@@ -11,17 +11,26 @@
              x:Name="LControl">
 
 	<UserControl.Resources>
-		
+
 	</UserControl.Resources>
 
 	<Grid>
 
 		<ListBox x:Name="LibBox" ItemsSource="{Binding LibrariesSource, ElementName=LControl}" Style="{DynamicResource MaterialDesignModifiedListBox}">
 			<b:Interaction.Triggers>
-				<b:EventTrigger EventName="SelectionChanged">
+				<b:EventTrigger EventName="PreviewMouseUp">
 					<b:InvokeCommandAction Command="{Binding ElementName=LControl, Path=OnItemClick}" CommandParameter="{Binding Path=SelectedIndex, ElementName=LibBox}"/>
 				</b:EventTrigger>
 			</b:Interaction.Triggers>
+			<ListBox.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Open" />
+					<MenuItem Header="Rename">
+						<Separator/>
+						<MenuItem Header="Delete" />
+					</MenuItem>
+				</ContextMenu>
+			</ListBox.ContextMenu>
 			<ListBox.ItemTemplate>
 				<DataTemplate DataType="entities:Library">
 					<StackPanel>

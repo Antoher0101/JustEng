@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 // todo: Анимация перелистывания карточек
+// todo: Закрытие библиотеки кнопкой
 
 namespace JustEng.ViewModels
 {
@@ -63,6 +64,7 @@ namespace JustEng.ViewModels
 		{
 			ShowEditPopup = false;
 			NewFlashcardsStorage.Clear();
+			ChangedFlashcardsStorage.Clear();
 		}
 
 		#endregion
@@ -77,7 +79,7 @@ namespace JustEng.ViewModels
 		/// <summary>Проверка возможности выполнения - Открыть главный попап редактирования</summary>
 		private bool CanOpenApplyPopupCommandExecute(object p)
 		{
-			return NewFlashcardsStorage.Count > 0;
+			return IsDataChanged;
 		}
 
 		/// <summary>Логика выполнения - Открыть главный попап редактирования</summary>
@@ -182,10 +184,13 @@ namespace JustEng.ViewModels
 			set => Set(ref _Flashcards, value);
 		}
 
-		private List<Flashcard> ChangedFlashcards { get; set; } = new();
+		private List<Flashcard> ChangedFlashcardsStorage { get; set; } = new();
 
 		private bool _isFlashcardFlipped;
 		public bool IsFlashcardFlipped { get => _isFlashcardFlipped; set => Set(ref _isFlashcardFlipped, value); }
+
+		private bool _isDataChanged;
+		public bool IsDataChanged { get => _isDataChanged; set => Set(ref _isDataChanged, value); }
 
 		/// <summary>
 		/// Array contains recently added flashcards that haven't yet been saved in the database
@@ -361,6 +366,7 @@ namespace JustEng.ViewModels
 		private void OnAddNewFlashcardCommandExecuted(object p)
 		{
 			NewFlashcardsStorage.Add(new Flashcard());
+			IsDataChanged = true;
 		}
 
 		#endregion
@@ -380,6 +386,7 @@ namespace JustEng.ViewModels
 			SaveToDatabase();
 			CloseApplyPopupCommand.Execute(this);
 			NewFlashcardsStorage.Clear();
+			IsDataChanged = false;
 		}
 		#endregion
 
@@ -422,6 +429,8 @@ namespace JustEng.ViewModels
 			{
 				var item = ((ListBoxItem)p).Content as Flashcard;
 				NewFlashcardsStorage.Remove(item);
+				if (NewFlashcardsStorage.Count > 0 || ChangedFlashcardsStorage.Count > 0) IsDataChanged = true;
+				else IsDataChanged = false;
 			}
 		}
 
@@ -443,7 +452,8 @@ namespace JustEng.ViewModels
 			if (p is not null)
 			{
 				var item = ((ListBoxItem)p).Content as Flashcard;
-				ChangedFlashcards.Add(item);
+				ChangedFlashcardsStorage.Add(item);
+				IsDataChanged = true;
 			}
 		}
 
@@ -497,9 +507,9 @@ namespace JustEng.ViewModels
 		{
 			var lib = _flashcardRepository as DbRepository<Flashcard>;
 			lib.AutoSaveChanges = false;
-			if (ChangedFlashcards.Count > 0)
+			if (ChangedFlashcardsStorage.Count > 0)
 			{
-				foreach (Flashcard flashcard in ChangedFlashcards)
+				foreach (Flashcard flashcard in ChangedFlashcardsStorage)
 				{
 					UpdateFlashcard(flashcard);
 				}
@@ -521,6 +531,8 @@ namespace JustEng.ViewModels
 		{
 			Flashcards = _flashcardRepository.Items.Where(s => s.Library.Id == CurrentLibrary.Id).ToList();
 			TotalFlashcards = Flashcards.Count;
+			if(CurrentFlashcardNumber == 0 && TotalFlashcards > 0) CurrentFlashcardNumber = 1;
+			if(CurrentFlashcardNumber > 0 && TotalFlashcards == 0) CurrentFlashcardNumber = 0;
 		}
 		private async void DeleteFromDatabase(int id)
 		{

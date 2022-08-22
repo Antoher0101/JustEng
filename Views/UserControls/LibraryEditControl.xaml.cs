@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Converters;
+using JustEng.Infrastructure.Commands;
 using JustEng.JustEngDAL.Entities;
 
 namespace JustEng.Views.UserControls
@@ -15,6 +16,8 @@ namespace JustEng.Views.UserControls
 	/// </summary>
 	public partial class LibraryEditControl : UserControl
 	{
+		public bool EditingMode { get; set; }
+		private Button last_btn;
 		public LibraryEditControl()
 		{
 			InitializeComponent();
@@ -36,24 +39,7 @@ namespace JustEng.Views.UserControls
 		public ICollection<Flashcard> FlashcardsSource { get => (ICollection<Flashcard>)GetValue(FlashcardsSourceProperty); set => SetValue(FlashcardsSourceProperty, value); }
 		#endregion
 
-		#region EditingMode : bool - $summary$
-
-		/// <summary>$summary$</summary>
-		public static readonly DependencyProperty EditingModeProperty =
-			DependencyProperty.Register(
-				nameof(EditingMode),
-				typeof(bool),
-				typeof(LibraryEditControl),
-				new PropertyMetadata(default(bool)));
-
-		/// <summary>$summary$</summary>
-		//[Category("")]
-		[Description("$summary$")]
-		public bool EditingMode { get => (bool)GetValue(EditingModeProperty); set => SetValue(EditingModeProperty, value); }
-
-		#endregion
-
-		#region DeleteCommand : ICommand - $summary$
+		#region DeleteCommand : ICommand - Binding delete command
 
 		/// <summary>$summary$</summary>
 		public static readonly DependencyProperty DeleteCommandProperty =
@@ -69,5 +55,36 @@ namespace JustEng.Views.UserControls
 		public ICommand DeleteCommand { get => (ICommand)GetValue(DeleteCommandProperty); set => SetValue(DeleteCommandProperty, value); }
 
 		#endregion
+
+		#region ApplyNewCommand : ICommand
+
+		/// <summary></summary>
+		public static readonly DependencyProperty ApplyNewCommandProperty =
+			DependencyProperty.Register(
+				nameof(ApplyNewCommand),
+				typeof(ICommand),
+				typeof(LibraryEditControl),
+				new PropertyMetadata(default(ICommand)));
+
+		/// <summary></summary>
+		//[Category("")]
+		[Description("")]
+		public ICommand ApplyNewCommand { get => (ICommand)GetValue(ApplyNewCommandProperty); set => SetValue(ApplyNewCommandProperty, value); }
+
+		#endregion
+
+		private void EditCardButton_OnClick(object Sender, RoutedEventArgs E)
+		{
+			last_btn = ((Button)Sender);
+			last_btn.Visibility = Visibility.Collapsed;
+			EditingMode = false;
+		}
+
+		private void ApplyEditCardButton_OnClick(object Sender, RoutedEventArgs E)
+		{
+			last_btn.Visibility = Visibility.Visible;
+			EditingMode = true;
+			ApplyNewCommand.Execute(((Button)Sender).Tag);
+		}
 	}
 }
